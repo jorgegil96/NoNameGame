@@ -12,7 +12,7 @@ public class DesktopLauncher {
 		Graphics.DisplayMode displayMode = LwjglApplicationConfiguration.getDesktopDisplayMode();
 
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-config.setFromDisplayMode(displayMode);
+		//config.setFromDisplayMode(displayMode);
 		new LwjglApplication(new MainGame(), config);
 	}
 }
