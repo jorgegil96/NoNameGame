@@ -72,31 +72,8 @@ public class PlayScreen implements Screen{
         Gdx.input.setInputProcessor(inputProcessor);
     }
     
-    public void handleInput(float dt){
-
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP) && soulKeeper.b2body.getLinearVelocity().y <= 2)
-        {
-            soulKeeper.b2body.setLinearVelocity(new Vector2(0, 1f));
-            //soulKeeper.b2body.applyLinearImpulse(new Vector2(0,1f), soulKeeper.b2body.getWorldCenter(), false);
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN) && soulKeeper.b2body.getLinearVelocity().y >= -2)
-        {
-            soulKeeper.b2body.applyLinearImpulse(new Vector2(0,-1f), soulKeeper.b2body.getWorldCenter(), false);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT) && soulKeeper.b2body.getLinearVelocity().x <= 2)
-        {
-           soulKeeper.b2body.applyLinearImpulse(new Vector2(0.1f,0), soulKeeper.b2body.getWorldCenter(), false);
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT) && soulKeeper.b2body.getLinearVelocity().x >= -2)
-        {
-           soulKeeper.b2body.applyLinearImpulse(new Vector2(-0.1f,0), soulKeeper.b2body.getWorldCenter(), false);
-        }
-    }
-    
     public void update(float dt)
     {
-        handleInput(dt);
-
         world.step(1/60f, 6, 2);
         soulKeeper.update(dt);
         for(Enemy enemy: creator.getDemons())
