@@ -80,6 +80,7 @@ public class SoulKeeper extends Sprite{
     
     public void update(float dt)
     {
+        stateTimer += dt;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(dt));
     }
@@ -91,16 +92,16 @@ public class SoulKeeper extends Sprite{
         switch(currentState)
         {
             case UP:
-                region = marioStand;
+                region = marioRun.getKeyFrame(stateTimer, true /* loop */);
                 break;
             case LEFT:
-            region = marioStand;
-            break;
+                region = marioRun.getKeyFrame(stateTimer, true /* loop */);;
+                break;
             case RIGHT:
-                 region = marioStand;
+                 region = marioRun.getKeyFrame(stateTimer, true /* loop */);;
                 break;
             case DOWN:
-                 region = marioStand;
+                 region = marioRun.getKeyFrame(stateTimer, true /* loop */);;
                 break;
             case STANDING:
             default:
@@ -137,7 +138,7 @@ public class SoulKeeper extends Sprite{
         {
             return State.DOWN;
         }
-        else if(b2body.getLinearVelocity().y > 0)
+        else if(b2body.getLinearVelocity().x > 0)
         {
             return State.RIGHT;
         }
