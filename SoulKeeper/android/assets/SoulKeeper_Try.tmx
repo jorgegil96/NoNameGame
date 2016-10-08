@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="16" height="8" tilewidth="32" tileheight="32" nextobjectid="63">
+ <tileset firstgid="1" name="SNES - The Legend of Zelda A Link to the Past - Fairy Cave Area" tilewidth="32" tileheight="32" tilecount="320" columns="20">
+  <image source="SNES - The Legend of Zelda A Link to the Past - Fairy Cave Area.png" width="649" height="512"/>
+ </tileset>
+ <layer name="Background" width="16" height="8">
+  <data encoding="csv">
+1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,
+21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,
+41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,
+61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,
+81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,
+101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,
+121,122,123,124,125,126,127,128,129,130,131,132,133,134,135,136,
+141,142,143,144,145,146,147,148,149,150,151,152,153,154,155,156
+</data>
+ </layer>
+ <objectgroup name="Trees" visible="0">
+  <object id="4" x="118" y="100" width="50" height="68"/>
+  <object id="8" x="183" y="115" width="50" height="68"/>
+  <object id="9" x="245" y="130" width="50" height="68"/>
+  <object id="10" x="310" y="146" width="50" height="68"/>
+  <object id="11" x="381" y="162" width="50" height="68"/>
+ </objectgroup>
+ <objectgroup name="Ground" visible="0">
+  <object id="12" x="2" y="206" width="91" height="47"/>
+  <object id="15" x="2" y="40" width="45" height="67"/>
+  <object id="16" x="210" y="30" width="79" height="63"/>
+  <object id="17" x="321" y="28" width="29" height="64"/>
+  <object id="18" x="387" y="1" width="28" height="125"/>
+  <object id="19" x="108" y="48">
+   <polyline points="0,0 -59,59 -59,-6 -34,-32 -3,-2 1,-48 -34,-48 -33,-31 0,0"/>
+  </object>
+  <object id="20" x="95" y="206">
+   <polygon points="0,0 47,47 1,50"/>
+  </object>
+  <object id="21" x="143" y="249">
+   <polyline points="0,0 287,3"/>
+  </object>
+  <object id="22" x="353" y="95">
+   <polyline points="0,0 30,31 30,-92 -1,-93 0,-3"/>
+  </object>
+  <object id="23" x="413" y="123">
+   <polyline points="0,0 22,23 97,-56 6,-123 2,-3"/>
+  </object>
+  <object id="24" x="433" y="146">
+   <polyline points="0,0 2,105 69,77 74,-77 -1,1"/>
+  </object>
+  <object id="38" x="108" y="0" width="51" height="39"/>
+  <object id="40" x="143" y="249" width="290" height="5"/>
+  <object id="42" x="94" y="210" width="6" height="43"/>
+  <object id="43" x="103" y="218" width="3" height="37"/>
+  <object id="44" x="109" y="222" width="4" height="32"/>
+  <object id="45" x="115" y="230" width="1" height="24"/>
+  <object id="46" x="118" y="231" width="4" height="23"/>
+  <object id="47" x="126" y="234" height="21"/>
+  <object id="48" x="130" y="242" width="3" height="12"/>
+  <object id="49" x="135" y="248" width="1" height="10"/>
+  <object id="50" x="106" y="40" width="55" height="9"/>
+  <object id="51" x="54" y="37" width="3" height="61"/>
+  <object id="52" x="58" y="24" width="2" height="66"/>
+  <object id="53" x="65" y="21" width="2" height="60"/>
+  <object id="54" x="69" y="16" width="7" height="59"/>
+  <object id="55" x="78" y="28" width="8" height="45"/>
+  <object id="56" x="90" y="39" width="7" height="18"/>
+  <object id="57" x="90" y="56" width="4" height="4"/>
+  <object id="58" x="61" y="70" width="11" height="17"/>
+  <object id="59" x="164" y="19" width="20" height="35"/>
+  <object id="60" x="173" y="55" width="29" height="7"/>
+  <object id="61" x="183" y="64" width="26" height="9"/>
+ </objectgroup>
+</map>
