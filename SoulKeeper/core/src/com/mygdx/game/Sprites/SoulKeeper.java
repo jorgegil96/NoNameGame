@@ -5,9 +5,6 @@
  */
 package com.mygdx.game.Sprites;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -43,7 +40,9 @@ public class SoulKeeper extends Sprite{
     private Animation marioJump;
     private Animation marioRun;
     private float stateTimer;
-    private boolean runningRight;
+    private boolean runningRight, runningLeft, runningUp, runningDown;
+
+    float speed = 100.0f;
     
     public SoulKeeper(PlayScreen screen)
     {   
@@ -52,7 +51,11 @@ public class SoulKeeper extends Sprite{
         currentState = State.STANDING;
         previousState = State.STANDING;
         stateTimer = 0;
-        runningRight = true;
+
+        runningLeft = false;
+        runningRight = false;
+        runningDown = false;
+        runningUp = false;
         
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 1; i < 4; i++)
@@ -162,5 +165,37 @@ public class SoulKeeper extends Sprite{
         fdef.shape = head;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData("head");
+    }
+
+    public void setRunningUp(boolean runningUp) {
+        this.runningUp = runningUp;
+    }
+
+    public void setRunningDown(boolean runningDown) {
+        this.runningDown = runningDown;
+    }
+
+    public void setRunningRight(boolean runningRight) {
+        this.runningRight = runningRight;
+    }
+
+    public void setRunningLeft(boolean runningLeft) {
+        this.runningLeft = runningLeft;
+    }
+
+    public boolean isRunningUp() {
+        return runningUp;
+    }
+
+    public boolean isRunningDown() {
+        return runningDown;
+    }
+
+    public boolean isRunningRight() {
+        return runningRight;
+    }
+
+    public boolean isRunningLeft() {
+        return runningLeft;
     }
 }
