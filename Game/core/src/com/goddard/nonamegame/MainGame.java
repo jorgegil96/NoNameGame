@@ -7,16 +7,22 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
+import com.badlogic.gdx.math.Vector3;
 
 public class MainGame extends ApplicationAdapter implements InputProcessor {
+	Texture img;
 	OrthographicCamera camera;
 	TiledMap map;
 	TiledMapRenderer mapRenderer;
+	SpriteBatch sb;
+	Texture texture;
+	Sprite sprite;
 	
 	@Override
 	public void create () {
@@ -31,6 +37,10 @@ public class MainGame extends ApplicationAdapter implements InputProcessor {
 		mapRenderer = new OrthoCachedTiledMapRenderer(map);
 		Gdx.input.setInputProcessor(this);
 
+		sb = new SpriteBatch();
+		texture = new Texture(Gdx.files.internal("pik.png"));
+		sprite = new Sprite(texture);
+
 	}
 
 	@Override
@@ -41,6 +51,11 @@ public class MainGame extends ApplicationAdapter implements InputProcessor {
 		camera.update();
 		mapRenderer.setView(camera);
 		mapRenderer.render();
+
+		//sb.setProjectionMatrix(camera.combined);
+		sb.begin();
+		sprite.draw(sb);
+		sb.end();
 
 	}
 	
@@ -73,7 +88,10 @@ public class MainGame extends ApplicationAdapter implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		return false;
+		Vector3 clickCoordinates = new Vector3(screenX,screenY,0);
+		Vector3 position = camera.unproject(clickCoordinates);
+		sprite.setPosition(position.x, position.y);
+		return true;
 	}
 
 	@Override
