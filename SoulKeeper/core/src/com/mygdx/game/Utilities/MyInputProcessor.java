@@ -47,19 +47,27 @@ public class MyInputProcessor implements InputProcessor {
 
         if (keycode == Input.Keys.W) {
             soulKeeper.setRunningUp(false);
-            vector2 = new Vector2(currentX, 0);
+            if (currentY != -1f) {
+                vector2 = new Vector2(currentX, 0);
+            }
         }
         if (keycode == Input.Keys.S) {
             soulKeeper.setRunningDown(false);
-            vector2 = new Vector2(currentX, 0);
+            if (currentY != 1f) {
+                vector2 = new Vector2(currentX, 0);
+            }
         }
         if (keycode == Input.Keys.A) {
             soulKeeper.setRunningLeft(false);
-            vector2 = new Vector2(0, currentY);
+            if (currentX != -1f) {
+                vector2 = new Vector2(0, currentY);
+            }
         }
         if (keycode == Input.Keys.D) {
             soulKeeper.setRunningRight(false);
-            vector2 = new Vector2(0, currentY);
+            if (currentX != 1f) {
+                vector2 = new Vector2(0, currentY);
+            }
         }
         if (vector2 != null) {
             soulKeeper.b2body.setLinearVelocity(vector2);
