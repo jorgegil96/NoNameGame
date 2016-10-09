@@ -1,0 +1,152 @@
+soulkeeper.png
+size: 1259, 96
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+prota_noche
+  rotate: false
+  xy: 351, 1
+  size: 41, 93
+  orig: 100, 100
+  offset: 29, 4
+  index: -1
+prota_noche_arma
+  rotate: false
+  xy: 40, 1
+  size: 83, 93
+  orig: 100, 100
+  offset: 2, 4
+  index: -1
+prota_noche_arma_camina_der
+  rotate: false
+  xy: 125, 1
+  size: 83, 93
+  orig: 100, 100
+  offset: 2, 4
+  index: -1
+prota_noche_arma_camina_izq
+  rotate: false
+  xy: 210, 1
+  size: 83, 93
+  orig: 100, 100
+  offset: 2, 4
+  index: -1
+prota_noche_ataca
+  rotate: false
+  xy: 295, 1
+  size: 54, 93
+  orig: 100, 100
+  offset: 31, 4
+  index: -1
+prota_noche_camina_der
+  rotate: false
+  xy: 394, 1
+  size: 41, 93
+  orig: 100, 100
+  offset: 29, 4
+  index: -1
+prota_noche_camina_izq
+  rotate: false
+  xy: 437, 1
+  size: 41, 93
+  orig: 100, 100
+  offset: 29, 4
+  index: -1
+prota_noche_espaldas
+  rotate: false
+  xy: 1012, 1
+  size: 41, 91
+  orig: 100, 100
+  offset: 29, 5
+  index: -1
+prota_noche_espaldas_arma
+  rotate: false
+  xy: 701, 1
+  size: 84, 91
+  orig: 100, 100
+  offset: 14, 5
+  index: -1
+prota_noche_espaldas_arma_der
+  rotate: false
+  xy: 787, 1
+  size: 84, 91
+  orig: 100, 100
+  offset: 14, 5
+  index: -1
+prota_noche_espaldas_arma_izq
+  rotate: false
+  xy: 873, 1
+  size: 84, 91
+  orig: 100, 100
+  offset: 14, 5
+  index: -1
+prota_noche_espaldas_ataca
+  rotate: false
+  xy: 959, 1
+  size: 51, 91
+  orig: 100, 100
+  offset: 17, 5
+  index: -1
+prota_noche_espaldas_der
+  rotate: false
+  xy: 1055, 1
+  size: 41, 91
+  orig: 100, 100
+  offset: 29, 5
+  index: -1
+prota_noche_espaldas_izq
+  rotate: false
+  xy: 1098, 1
+  size: 41, 91
+  orig: 100, 100
+  offset: 29, 5
+  index: -1
+prota_noche_lado
+  rotate: false
+  xy: 1, 1
+  size: 37, 94
+  orig: 100, 100
+  offset: 30, 3
+  index: -1
+prota_noche_lado_ataca_escudo
+  rotate: false
+  xy: 480, 1
+  size: 67, 92
+  orig: 100, 100
+  offset: 8, 5
+  index: -1
+prota_noche_lado_ataca_machete
+  rotate: false
+  xy: 549, 1
+  size: 64, 92
+  orig: 100, 100
+  offset: 30, 5
+  index: -1
+prota_noche_lado_camina_der
+  rotate: false
+  xy: 615, 1
+  size: 41, 92
+  orig: 100, 100
+  offset: 30, 5
+  index: -1
+prota_noche_lado_camina_izq
+  rotate: false
+  xy: 658, 1
+  size: 41, 92
+  orig: 100, 100
+  offset: 30, 5
+  index: -1
+prota_noche_lado_protege
+  rotate: false
+  xy: 1201, 1
+  size: 57, 78
+  orig: 100, 100
+  offset: 22, 5
+  index: -1
+prota_noche_protege
+  rotate: false
+  xy: 1141, 1
+  size: 58, 78
+  orig: 100, 100
+  offset: 16, 5
+  index: -1

@@ -32,6 +32,7 @@ import com.mygdx.game.Sprites.SoulKeeper;
 public class Hud implements Disposable{
 
 
+
     private MyGdxGame game;
     public Stage stage;
     private Viewport view;
@@ -39,10 +40,12 @@ public class Hud implements Disposable{
     private Texture notAlma;
     private Texture lifeBg;
     private Texture life;
+    private Texture pausa;
     private Image  almaImg;
     private Image notAlmaImg;
     private Image lifeBgImg;
     private Image lifeImg;
+    private Image pausaImg;
     private PlayScreen screen1;
     public Hud(final MyGdxGame game, PlayScreen screen){
         int i=0;
@@ -53,6 +56,7 @@ public class Hud implements Disposable{
         notAlma = new Texture(Gdx.files.internal("images/almaShadow.png"));
         life = new Texture(Gdx.files.internal("images/life.png"));
         lifeBg = new Texture(Gdx.files.internal("images/lifebg.png"));
+        pausa = new Texture(Gdx.files.internal("pausa.png"));
 
         while(i<game.almas) {
             almaImg = new Image(alma);
@@ -74,6 +78,10 @@ public class Hud implements Disposable{
         lifeImg.setPosition(game.width - 280,game.height - 80);
         lifeImg.setScaleX(screen1.soulKeeper.getLife());
         stage.addActor(lifeImg);
+
+        pausaImg=new Image(pausa);
+        pausaImg.setPosition(game.width/2-50, game.height-100);
+        stage.addActor(pausaImg);
     }
 
     @Override

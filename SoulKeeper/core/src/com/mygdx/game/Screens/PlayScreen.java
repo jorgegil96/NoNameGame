@@ -9,6 +9,7 @@ package com.mygdx.game.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
@@ -17,6 +18,7 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -24,6 +26,7 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Gameplay.History;
 import com.mygdx.game.MyGdxGame;
 import static com.mygdx.game.MyGdxGame.PPM;
 import com.mygdx.game.Scenes.Hud;
@@ -35,7 +38,7 @@ import com.mygdx.game.Tools.WorldContactListener;
 import com.mygdx.game.Utilities.MyInputProcessor;
 
 public class PlayScreen implements Screen{
-    private long fontWaitTime;
+    private History history;
     private MyGdxGame game;
     private OrthographicCamera camera;
     private Viewport view;
@@ -49,12 +52,27 @@ public class PlayScreen implements Screen{
     public SoulKeeper soulKeeper;
     private B2WorldCreator creator;
     private TextureAtlas atlas;
+<<<<<<< HEAD
     private InsideHouse house;
+=======
+    private State state = State.RUN;
+>>>>>>> 83815bd655828f5d9496751da9a56240a7e244d1
     public boolean up;
     public boolean down;
     public boolean right;
     public boolean left;
+<<<<<<< HEAD
     public boolean isOutside;
+=======
+    private long waitTime;
+
+    public enum State {
+        PAUSE,
+        RUN,
+        RESUME,
+    }
+
+>>>>>>> 83815bd655828f5d9496751da9a56240a7e244d1
     public PlayScreen(MyGdxGame game){
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
         this.game = game;
@@ -71,7 +89,7 @@ public class PlayScreen implements Screen{
         soulKeeper = new SoulKeeper(this);
         creator = new B2WorldCreator(this, soulKeeper);
         hud = new Hud(game, this);
-        Dialog = new Dialog(game, this, "", TimeUtils.nanoTime());
+        Dialog = new Dialog(game, "", TimeUtils.nanoTime());
         world.setContactListener(new WorldContactListener());
         world.setGravity(new Vector2(0,0));
 
@@ -133,46 +151,10 @@ public class PlayScreen implements Screen{
             down = false;
     }
     
-    public void handleInput(float dt){
-        if(Gdx.input.isKeyJustPressed(Input.Keys.UP))
-        {
-            up = true;
-            right = false;
-            left = false;       
-            down = false;   
-        }
-        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
-        {
-            down = true;
-            up = false;
-            right = false;
-            left = false;   
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
-        {
-            up = false;
-            right = true;
-            left = false;      
-            down = false;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
-        {
-            up = false;
-            right = false;
-            left = true;      
-           down = false;
-        }
-        if(Gdx.input.isKeyPressed(Input.Keys.X))
-        {
-            soulKeeper.hit();
-        }
-    }
-    
     public void update(float dt) {
         world.step(1/60f, 6, 2);
         soulKeeper.update(dt);
         game.setLife(soulKeeper.getLife());
-        Gdx.app.log("Life", String.valueOf(game.vida));
         for(Enemy enemy: creator.getDemons())
         {
             enemy.update(dt);
@@ -184,6 +166,7 @@ public class PlayScreen implements Screen{
         hud.update(dt);
         Dialog.update(dt);
         camera.position.x = soulKeeper.b2body.getPosition().x;
+        camera.position.y = soulKeeper.b2body.getPosition().y;
         camera.update();
         renderer.setView(camera);
     }
@@ -192,7 +175,11 @@ public class PlayScreen implements Screen{
     {
         return atlas;
     }
-    
+
+    public void setGameState(State s){
+        this.state = s;
+    }
+
     @Override
     public void show() {
        
@@ -200,6 +187,7 @@ public class PlayScreen implements Screen{
 
     @Override
     public void render(float delta) {
+<<<<<<< HEAD
         update(delta);
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -217,9 +205,92 @@ public class PlayScreen implements Screen{
         if(Gdx.input.isTouched()) {
             Dialog = new Dialog(game, this, "The poor children had now nowhere to play. They tried to play on the road, but the" +
                     " road was very dusty and full of hard stones, and they did not like it.", TimeUtils.nanoTime());
+=======
+
+        switch (state) {
+            case RUN:
+                update(delta);
+                Gdx.gl.glClearColor(0,0,0,1);
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+                renderer.render();
+                //b2dr.render(world, camera.combined);
+                game.batch.setProjectionMatrix(camera.combined);
+                game.batch.begin();
+                soulKeeper.draw(game.batch);
+                for(Enemy enemy: creator.getDemons()) {
+                    enemy.draw(game.batch);
+                }
+                game.batch.end();
+                game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+                hud.stage.draw();
+                if(Gdx.input.isTouched()) {
+                    Dialog = new Dialog(game, "The poor children had now nowhere to play. They tried to play on the road, but the" +
+                            " road was very dusty and full of hard stones, and they did not like it.", TimeUtils.nanoTime());
+                }
+                game.batch.setProjectionMatrix(Dialog.stage.getCamera().combined);
+                Dialog.stage.draw();
+                if(Gdx.input.isTouched()){
+                    Vector3 touchPos = new Vector3();
+                    touchPos.set(Gdx.input.getX()*100, Gdx.input.getY(), 0);
+                    camera.unproject(touchPos);
+                    if(touchPos.x > game.width*2/5 && touchPos.x < game.width*3/5 &&
+                            touchPos.y*100 > game.height-100 && touchPos.y*100 < game.height)
+                    setGameState(State.PAUSE);
+                    waitTime=TimeUtils.nanoTime();
+                }
+                break;
+            case PAUSE:
+                game.textCenter(game.height*4/5,"The game is on pause",game.font);
+                int button2Y = game.height*2/5;
+                int button1Y = game.height/5;
+                game.button(button2Y,"Resume", Color.FIREBRICK);
+                game.button(button1Y,"Main Menu", Color.FIREBRICK);
+                if(Gdx.input.isTouched()&&TimeUtils.nanoTime()-waitTime>500000000){
+                    Vector3 touchPos = new Vector3();
+                    touchPos.set(Gdx.input.getX()*100, Gdx.input.getY(), 0);
+                    camera.unproject(touchPos);
+                    System.out.println(touchPos.x + " " + touchPos.y);
+                    if(touchPos.x > game.width/5 && touchPos.x < game.width*4/5 &&
+                            touchPos.y*100 > button2Y && touchPos.y*100 < button2Y+game.height/8) {
+                        setGameState(State.RESUME);
+                        waitTime=TimeUtils.nanoTime();
+                    }
+                    if(touchPos.x > game.width/5 && touchPos.x < game.width*4/5 &&
+                            touchPos.y*100 > button1Y && touchPos.y*100 < button1Y+game.height/8) {
+                        game.setScreen(new mainMenuScreen(game));
+                        dispose();
+                    }
+                }
+                break;
+            case RESUME:
+                update(delta);
+                Gdx.gl.glClearColor(0,0,0,1);
+                Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+                renderer.render();
+                //b2dr.render(world, camera.combined);
+                game.batch.setProjectionMatrix(camera.combined);
+                game.batch.begin();
+                soulKeeper.draw(game.batch);
+                for(Enemy enemy: creator.getDemons()) {
+                    enemy.draw(game.batch);
+                }
+                game.batch.end();
+                game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
+                hud.stage.draw();
+                game.batch.setProjectionMatrix(Dialog.stage.getCamera().combined);
+                Dialog.stage.draw();
+                if(Gdx.input.isTouched()){
+                    Vector3 touchPos3 = new Vector3();
+                    touchPos3.set(Gdx.input.getX()*100, Gdx.input.getY(), 0);
+                    camera.unproject(touchPos3);
+                    if(touchPos3.x > game.width*2/5 && touchPos3.x < game.width*3/5 &&
+                            touchPos3.y*100 > game.height-100 && touchPos3.y*100 < game.height)
+                        setGameState(State.PAUSE);
+                    waitTime=TimeUtils.nanoTime();
+                }
+                break;
+>>>>>>> 83815bd655828f5d9496751da9a56240a7e244d1
         }
-        game.batch.setProjectionMatrix(Dialog.stage.getCamera().combined);
-        Dialog.stage.draw();
     }
 
     @Override
@@ -234,20 +305,20 @@ public class PlayScreen implements Screen{
     public World getWorld(){
         return world;
     }
-    
+
     @Override
     public void pause() {
-        
+        this.state = State.PAUSE;
     }
 
     @Override
     public void resume() {
-        
+        this.state = State.RESUME;
     }
 
     @Override
     public void hide() {
-        
+
     }
 
     @Override

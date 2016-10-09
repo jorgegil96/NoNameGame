@@ -28,7 +28,6 @@ public class Dialog implements Disposable {
     private MyGdxGame game;
     public Stage stage;
     private Viewport view;
-    private PlayScreen screen1;
     String s2 = "";
     int i=0;
     int j=0;
@@ -38,9 +37,8 @@ public class Dialog implements Disposable {
     private Label label;
     String texto;
 
-    public Dialog(final MyGdxGame gam, PlayScreen screen, String text, long initTime){
+    public Dialog(final MyGdxGame gam, String text, long initTime){
         game=gam;
-        screen1 = screen;
         texto=text;
         view = new FitViewport(game.width, game.height, new OrthographicCamera());
         stage = new Stage(view, game.batch);
