@@ -59,25 +59,16 @@ public class B2WorldCreator {
         }
         
         
-        for(MapObject object: map.getLayers().get("Door").getObjects().getByType(RectangleMapObject.class)){
+      /*  for(MapObject object: map.getLayers().get("Door").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Door(screen, rect);
-        }
+        }*/
+       
         
-        for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
+        /*for(MapObject object : map.getLayers().get("npc").getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
-            new Ground(screen, rect);
-        }
-        
-        for(MapObject object : map.getLayers().get("npc").getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
-            new NPC(screen, rect);
-        }
-        
-        for(MapObject object : map.getLayers().get("npc").getObjects().getByType(RectangleMapObject.class)) {
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
-            new NPC(screen, rect);
-        }
+        }*/
+
  
 
         demons = new Array<Demons>();
