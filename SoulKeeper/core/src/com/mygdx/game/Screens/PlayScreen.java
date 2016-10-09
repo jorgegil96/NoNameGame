@@ -11,6 +11,7 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -55,13 +56,15 @@ public class PlayScreen implements Screen{
         view = new FillViewport(400/ PPM, 208 / PPM,camera);
         hud = new Hud(game);
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("SoulKeeper_Try.tmx");
+        map = mapLoader.load("SoulKeeper_Try4.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1/ PPM);
         camera.position.set((view.getWorldWidth() / 2), (view.getWorldHeight() / 2),0);
+
         world = new World(new Vector2(0,-10), false);
-        b2dr = new Box2DDebugRenderer(); 
-        creator = new B2WorldCreator(this);
+        b2dr = new Box2DDebugRenderer();
         soulKeeper = new SoulKeeper(this);
+        creator = new B2WorldCreator(this, soulKeeper);
+
         world.setContactListener(new WorldContactListener());
         world.setGravity(new Vector2(0,0));
 
@@ -72,6 +75,7 @@ public class PlayScreen implements Screen{
 
         MyInputProcessor inputProcessor = new MyInputProcessor(this,soulKeeper);
         Gdx.input.setInputProcessor(inputProcessor);
+
     }
     
     public void setUp()

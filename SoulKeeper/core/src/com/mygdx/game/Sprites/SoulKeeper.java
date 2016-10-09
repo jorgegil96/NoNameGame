@@ -5,6 +5,7 @@
  */
 package com.mygdx.game.Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -42,8 +43,9 @@ public class SoulKeeper extends Sprite{
     private PlayScreen screen1;
     private Array<Sword> swords;
     private FixtureDef fdef_sword = new FixtureDef();
+    private int life;
     public SoulKeeper(PlayScreen screen)
-    {   
+    {
         super(screen.getAtlas().findRegion("big_mario"));
         this.world = screen.getWorld();
         currentState = State.STANDING;
@@ -54,39 +56,40 @@ public class SoulKeeper extends Sprite{
         runningRight = false;
         runningDown = false;
         runningUp = false;
-        
+        life = 100;
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 1; i < 4; i++)
         {
             frames.add(new TextureRegion(getTexture(), i * 16, 0, 16, 30));
             marioRun = new Animation(0.1f,frames);
-            
+
         }
         frames.clear();
         for(int i = 4; i < 6; i++)
         {
             frames.add(new TextureRegion(getTexture(), i * 16, 0, 16, 30));
             marioJump = new Animation(0.1f,frames);
-             frames.clear();
+            frames.clear();
         }
-       
+
         defineSoul();
-        
+
         CircleShape head = new CircleShape();
-                head.setPosition(new Vector2(16 / PPM, 4 / PPM));
-                head.setRadius(0/PPM);
-                fdef_sword.shape = head;
-                fdef_sword.filter.categoryBits = SWORD_BIT;
-                fdef_sword.filter.maskBits = DEFAULT_BIT | COIN_BIT | BRICK_BIT | OBJECT_BIT | ENEMY_BIT;
-                b2body.createFixture(fdef_sword).setUserData(this);
+        head.setPosition(new Vector2(16 / PPM, 4 / PPM));
+        head.setRadius(0/PPM);
+        fdef_sword.shape = head;
+        fdef_sword.filter.categoryBits = SWORD_BIT;
+        fdef_sword.filter.maskBits = DEFAULT_BIT | COIN_BIT | BRICK_BIT | OBJECT_BIT | ENEMY_BIT;
+        b2body.createFixture(fdef_sword).setUserData(this);
         marioStand = new TextureRegion(getTexture(), 0, 0, 16, 30);
         setBounds(0,0,16/PPM,30/PPM);
         setRegion(marioStand);
         swords = new Array<Sword>();
     }
-    
+
     public void update(float dt)
     {
+        Gdx.app.log("Life", String.valueOf(life));
         stateTimer += dt;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(dt));
@@ -96,7 +99,7 @@ public class SoulKeeper extends Sprite{
                 swords.removeValue(sword1, true);
         }
     }
-    
+
     public TextureRegion getFrame(float dt)
     {
         currentState = getState();
@@ -110,17 +113,17 @@ public class SoulKeeper extends Sprite{
                 region = marioRun.getKeyFrame(stateTimer, true /* loop */);;
                 break;
             case RIGHT:
-                 region = marioRun.getKeyFrame(stateTimer, true /* loop */);;
+                region = marioRun.getKeyFrame(stateTimer, true /* loop */);;
                 break;
             case DOWN:
-                 region = marioRun.getKeyFrame(stateTimer, true /* loop */);;
+                region = marioRun.getKeyFrame(stateTimer, true /* loop */);;
                 break;
             case STANDING:
             default:
                 region = marioStand;
                 break;
         }
-        
+
         if((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX())
         {
             region.flip(true, false);
@@ -131,12 +134,12 @@ public class SoulKeeper extends Sprite{
             region.flip(true, false);
             runningRight = true;
         }
-        
+
         stateTimer = currentState == previousState ? stateTimer + dt : 0;
         previousState = currentState;
         return region;
     }
-    
+
     public State getState(){
         if(b2body.getLinearVelocity().y > 0)
         {
@@ -159,7 +162,7 @@ public class SoulKeeper extends Sprite{
             return State.STANDING;
         }
     }
-    
+
     public void defineSoul()
     {
         BodyDef bdef = new BodyDef();
@@ -208,19 +211,24 @@ public class SoulKeeper extends Sprite{
         return runningLeft;
     }
 
-    public float getX() {
-         return b2body.getPosition().x;
+    public void damaged(){
+        life -= 10;
     }
-     
+
+    public float getX()
+    {
+        return b2body.getPosition().x;
+    }
+
     public float getY()
     {
-         return b2body.getPosition().y;
+        return b2body.getPosition().y;
     }
-      
+
     public Array<Sword> getSwords(){
         return swords;
     }
-    
+
     public void hit(){
         swords.add(new Sword(screen1, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false, runningUp ? true : false, this));
     }
