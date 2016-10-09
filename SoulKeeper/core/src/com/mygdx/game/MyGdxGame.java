@@ -33,8 +33,8 @@ public class MyGdxGame extends Game {
 	public int width;
 	public int height;
 	public int almas=3;
-	public float vida=0.2f;
-
+	public float vida=1f;
+        
 
 	public void button(int y, String text, Color fillColor){
 		shapeRenderer.setProjectionMatrix(camera.combined);
@@ -77,7 +77,13 @@ public class MyGdxGame extends Game {
 		font = gen2.generateFont(parameter2);
 		gen2.dispose();
 		setScreen(new mainMenuScreen(this));
+                
 	}
+        
+        public void setLife(float life)
+        {
+            vida = life;
+        }
 
 	@Override
 	public void render () {

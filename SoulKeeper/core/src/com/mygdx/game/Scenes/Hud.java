@@ -20,6 +20,8 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Screens.PlayScreen;
+import com.mygdx.game.Sprites.SoulKeeper;
 
 
 
@@ -41,9 +43,10 @@ public class Hud implements Disposable{
     private Image notAlmaImg;
     private Image lifeBgImg;
     private Image lifeImg;
-    
-    public Hud(final MyGdxGame game){
+    private PlayScreen screen1;
+    public Hud(final MyGdxGame game, PlayScreen screen){
         int i=0;
+                screen1 = screen;
         view = new FitViewport(game.width, game.height, new OrthographicCamera());
         stage = new Stage(view, game.batch);
         alma = new Texture(Gdx.files.internal("sprites/alma.png"));
@@ -53,23 +56,23 @@ public class Hud implements Disposable{
 
         while(i<game.almas) {
             almaImg = new Image(alma);
-            almaImg.setPosition(50+i*game.height*3/50, game.height * 9 / 10);
+            almaImg.setPosition(50+i*game.height*3/50, game.height - 100);
             stage.addActor(almaImg);
             i++;
         }
         while(7-i>0){
             notAlmaImg = new Image(notAlma);
-            notAlmaImg.setPosition(50+i*game.height*3/50, game.height * 9 / 10);
+            notAlmaImg.setPosition(50+i*game.height*3/50, game.height - 100);
             stage.addActor(notAlmaImg);
             i++;
         }
         lifeBgImg=new Image(lifeBg);
-        lifeBgImg.setPosition(game.width*17/20,game.height*9/10);
+        lifeBgImg.setPosition(game.width - 300,game.height - 100);
         stage.addActor(lifeBgImg);
 
         lifeImg=new Image(life);
-        lifeImg.setPosition(game.width*17/20+20,game.height*9/10+20);
-        lifeImg.setScaleX(game.vida);
+        lifeImg.setPosition(game.width - 280,game.height - 80);
+        lifeImg.setScaleX(screen1.soulKeeper.getLife());
         stage.addActor(lifeImg);
     }
 
@@ -79,7 +82,8 @@ public class Hud implements Disposable{
     }
 
     public void update(float dt) {
-        
+        lifeImg.setScaleX(screen1.soulKeeper.getLife());
+        stage.addActor(lifeImg);
     }
 }
 

@@ -43,7 +43,7 @@ public class SoulKeeper extends Sprite{
     private PlayScreen screen1;
     private Array<Sword> swords;
     private FixtureDef fdef_sword = new FixtureDef();
-    private int life;
+    private float life;
     public SoulKeeper(PlayScreen screen)
     {
         super(screen.getAtlas().findRegion("big_mario"));
@@ -56,7 +56,7 @@ public class SoulKeeper extends Sprite{
         runningRight = false;
         runningDown = false;
         runningUp = false;
-        life = 100;
+        life = 1;
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 1; i < 4; i++)
         {
@@ -89,7 +89,7 @@ public class SoulKeeper extends Sprite{
 
     public void update(float dt)
     {
-        Gdx.app.log("Life", String.valueOf(life));
+        
         stateTimer += dt;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(dt));
@@ -178,7 +178,11 @@ public class SoulKeeper extends Sprite{
         fixture = b2body.createFixture(fdef);
         fixture.setUserData(this);
     }
-
+    
+    public float getLife()
+    {
+        return life;
+    }
     public void setRunningUp(boolean runningUp) {
         this.runningUp = runningUp;
     }
@@ -212,7 +216,7 @@ public class SoulKeeper extends Sprite{
     }
 
     public void damaged(){
-        life -= 10;
+        life -= 0.1;
     }
 
     public float getX()

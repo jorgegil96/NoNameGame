@@ -26,6 +26,7 @@ public class WorldContactListener implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
+        try{
         Fixture FixA = contact.getFixtureA();
         Fixture FixB = contact.getFixtureB();
 
@@ -41,20 +42,28 @@ public class WorldContactListener implements ContactListener {
                     //((Sword)FixB.getUserData()).setToDestroy();
                 }
                 break;
-            case ENEMY_BIT | SWORD_BIT:
-                if(FixA.getFilterData().categoryBits == ENEMY_BIT) {
-                    ((Enemy)FixA.getUserData()).damaged();
-                    ((Sword)FixB.getUserData()).setToDestroy();
-                } else {
-                    ((Enemy)FixB.getUserData()).damaged();
-                    ((Sword)FixA.getUserData()).setToDestroy();
-                }
-                break;
-            case ENEMY_BIT | SOULKEEPER_BIT:
+                case ENEMY_BIT | SOULKEEPER_BIT:
                 if(FixA.getFilterData().categoryBits == SOULKEEPER_BIT) {
                     ((SoulKeeper)FixA.getUserData()).damaged();
                 } else {
                     ((SoulKeeper)FixB.getUserData()).damaged();
+                }
+                break;
+            case ENEMY_BIT | SWORD_BIT:
+                if(FixA.getFilterData().categoryBits == ENEMY_BIT) {
+                    ((Enemy)FixA.getUserData()).damaged();
+                    if(FixB.getFilterData().categoryBits == SWORD_BIT)
+                    {
+                        ((Sword)FixB.getUserData()).setToDestroy();
+                    }
+                } 
+                else 
+                {
+                    ((Enemy)FixB.getUserData()).damaged();
+                    if(FixA.getFilterData().categoryBits == SWORD_BIT)
+                    {
+                        ((Sword)FixA.getUserData()).setToDestroy();
+                    }
                 }
                 break;
             case ENEMY_BIT | OBJECT_BIT:
@@ -70,6 +79,7 @@ public class WorldContactListener implements ContactListener {
             break;
 
         }
+        }catch(java.lang.ClassCastException e){};
     }
 
     @Override
