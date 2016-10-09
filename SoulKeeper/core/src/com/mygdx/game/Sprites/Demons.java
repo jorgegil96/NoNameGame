@@ -17,9 +17,8 @@ import com.badlogic.gdx.physics.box2d.EdgeShape;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.utils.Array;
-import static com.mygdx.game.MyGdxGame.BRICK_BIT;
-import static com.mygdx.game.MyGdxGame.COIN_BIT;
 import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
+import static com.mygdx.game.MyGdxGame.DOOR_BIT;
 import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
 import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
 import static com.mygdx.game.MyGdxGame.PPM;
@@ -121,7 +120,7 @@ public class Demons extends Enemy{
         CircleShape shape = new CircleShape();
         shape.setRadius(6/PPM);
         fdef.filter.categoryBits = ENEMY_BIT;
-        fdef.filter.maskBits = DEFAULT_BIT | COIN_BIT | BRICK_BIT | ENEMY_BIT | OBJECT_BIT | SOULKEEPER_BIT | SWORD_BIT;
+        fdef.filter.maskBits = DEFAULT_BIT | DOOR_BIT | ENEMY_BIT | OBJECT_BIT | SOULKEEPER_BIT | SWORD_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
 

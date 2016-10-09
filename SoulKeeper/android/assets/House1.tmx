@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="9" height="6" tilewidth="32" tileheight="32" nextobjectid="7">
+ <tileset firstgid="1" name="casaAdentro" tilewidth="32" tileheight="32" tilecount="54" columns="9">
+  <image source="casaAdentro.png" width="300" height="200"/>
+ </tileset>
+ <layer name="Capa de Patrones 1" width="9" height="6">
+  <data encoding="csv">
+1,2,3,4,5,6,7,8,9,
+10,11,12,13,14,15,16,17,18,
+19,20,21,22,23,24,25,26,27,
+28,29,30,31,32,33,34,35,36,
+37,38,39,40,41,42,43,44,45,
+46,47,48,49,50,51,52,53,54
+</data>
+ </layer>
+ <objectgroup name="Walls">
+  <object id="1" x="2.00521" y="2.00521" width="15.0391" height="189.493"/>
+  <object id="2" x="19.0495" y="185.482" width="19.0495" height="7.01825"/>
+  <object id="3" x="145.378" y="184.48" width="137.357" height="7.01825"/>
+  <object id="4" x="278.725" y="0" width="8.02085" height="188.49"/>
+  <object id="5" x="19.0495" y="2.00521" width="258.673" height="28.073"/>
+ </objectgroup>
+ <objectgroup name="Door">
+  <object id="6" x="41.1069" y="185.482" width="104.271" height="7.01825"/>
+ </objectgroup>
+</map>

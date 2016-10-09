@@ -13,8 +13,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
-import static com.mygdx.game.MyGdxGame.BRICK_BIT;
-import static com.mygdx.game.MyGdxGame.COIN_BIT;
 import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
 import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
 import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
@@ -24,6 +22,7 @@ import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
 import com.mygdx.game.Screens.PlayScreen;
 
 import static com.mygdx.game.MyGdxGame.*;
+import com.mygdx.game.Screens.mainMenuScreen;
 
 public class SoulKeeper extends Sprite{
     public enum State {UP, DOWN, LEFT, RIGHT, STANDING};
@@ -39,13 +38,15 @@ public class SoulKeeper extends Sprite{
     private Animation marioRunDown;
     private float stateTimer;
     private boolean runningRight, runningLeft, runningUp, runningDown;
-    private boolean hitting;
+    private boolean hitting, defending;
     private float hitTimer;
 
     float speed = 100.0f;
     private Sword sword;
-    private PlayScreen screen1;
+    private Shield shield;
+    public PlayScreen screen1;
     private Array<Sword> swords;
+    private Array<Shield> shields;
     private FixtureDef fdef_sword = new FixtureDef();
     private float life;
     public SoulKeeper(PlayScreen screen)
@@ -62,6 +63,7 @@ public class SoulKeeper extends Sprite{
         runningUp = false;
         life = 1;
         hitting = false;
+        defending = false;
         hitTimer = 0;
 
 
@@ -95,6 +97,7 @@ public class SoulKeeper extends Sprite{
         setBounds(0, 0, 41 / PPM, 93 / PPM);
         setRegion(marioStand);
         swords = new Array<Sword>();
+        shields = new Array<Shield>();
     }
 
     public void update(float dt)
@@ -211,7 +214,7 @@ public class SoulKeeper extends Sprite{
         CircleShape shape = new CircleShape();
         shape.setRadius(12/PPM);
         fdef.filter.categoryBits = SOULKEEPER_BIT;
-        fdef.filter.maskBits = DEFAULT_BIT | COIN_BIT | BRICK_BIT | OBJECT_BIT | ENEMY_BIT | NPC_BIT;
+        fdef.filter.maskBits = DEFAULT_BIT | DOOR_BIT | OBJECT_BIT | ENEMY_BIT | NPC_BIT;
         fdef.shape = shape;
         fixture = b2body.createFixture(fdef);
         fixture.setUserData(this);
@@ -267,6 +270,10 @@ public class SoulKeeper extends Sprite{
         {
             life -= 0.1;
         }
+        else
+        {
+            screen1.game.setScreen(new mainMenuScreen(screen1.game));
+        }
     }
 
     public float getX()
@@ -286,5 +293,10 @@ public class SoulKeeper extends Sprite{
     public void hit(){
         swords.add(new Sword(screen1, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false, runningUp ? true : false, this));
         hitting = true;
+    }
+    
+    public void defense(){
+        shields.add(new Shield(screen1, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false, runningUp ? true : false, this));
+        defending = true;
     }
 }

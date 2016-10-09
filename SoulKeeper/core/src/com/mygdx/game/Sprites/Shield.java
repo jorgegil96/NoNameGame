@@ -21,6 +21,7 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
+import com.mygdx.game.MyGdxGame;
 import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
 import static com.mygdx.game.MyGdxGame.DOOR_BIT;
 import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
@@ -30,7 +31,7 @@ import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
 import static com.mygdx.game.MyGdxGame.SWORD_BIT;
 import com.mygdx.game.Screens.PlayScreen;
 
-public class Sword extends Sprite {
+public class Shield extends Sprite {
 
   PlayScreen screen;
     World world;
@@ -44,7 +45,7 @@ public class Sword extends Sprite {
     private SoulKeeper player1;
     Body b2body;
     boolean attack;
-    public Sword(PlayScreen screen, float x, float y, boolean swordRight, boolean swordUp, SoulKeeper player){
+    public Shield(PlayScreen screen, float x, float y, boolean swordRight, boolean swordUp, SoulKeeper player){
         this.swordRight = swordRight;
         this.swordUp = swordUp;
         this.screen = screen;
@@ -159,7 +160,7 @@ public class Sword extends Sprite {
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(3 / PPM);
-        fdef.filter.categoryBits = SWORD_BIT;
+        fdef.filter.categoryBits = MyGdxGame.SHIELD_BIT;
         fdef.filter.maskBits = DEFAULT_BIT |
                 DOOR_BIT |
                 ENEMY_BIT |

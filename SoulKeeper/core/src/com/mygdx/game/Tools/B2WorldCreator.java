@@ -30,6 +30,11 @@ import com.mygdx.game.MyGdxGame.*;
  */
 public class B2WorldCreator {
     private Array<Demons> demons;
+    private Array<Trees> trees;
+    private Array<Houses> houses;
+    private Array<Door> door;
+    private Array<Ground> ground;
+    private Array<NPC> npc;
     private SoulKeeper player1;
     public B2WorldCreator(PlayScreen screen, SoulKeeper player){
         player1 = player;
@@ -39,6 +44,7 @@ public class B2WorldCreator {
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
         Body body;
+    
 
         for(MapObject object: map.getLayers().get("items").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
@@ -49,19 +55,17 @@ public class B2WorldCreator {
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Houses(screen, rect);
         }
-
-        /*
-        for(MapObject object: map.getLayers().get("Door").getObjects().getByType(RectangleMapObject.class)){
+        
+        
+      /*  for(MapObject object: map.getLayers().get("Door").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Door(screen, rect);
-        }
-
-
-        for(MapObject object : map.getLayers().get("npc").getObjects().getByType(RectangleMapObject.class)) {
+        }*/
+       
+        
+        /*for(MapObject object : map.getLayers().get("npc").getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
-            new NPC(screen, rect);
-        }
-        */
+        }*/
 
         demons = new Array<Demons>();
         for(MapObject object: map.getLayers().get("monstruos").getObjects().getByType(RectangleMapObject.class)){

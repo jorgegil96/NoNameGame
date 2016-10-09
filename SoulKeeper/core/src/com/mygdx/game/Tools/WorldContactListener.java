@@ -13,20 +13,24 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.game.Sprites.Enemy;
 
 import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
+import static com.mygdx.game.MyGdxGame.DOOR_BIT;
 import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
+import static com.mygdx.game.MyGdxGame.NPC_BIT;
 import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
+import static com.mygdx.game.MyGdxGame.SHIELD_BIT;
 import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
 import static com.mygdx.game.MyGdxGame.SWORD_BIT;
 import com.mygdx.game.Sprites.Demons;
 
 import com.mygdx.game.Sprites.SoulKeeper;
 import com.mygdx.game.Sprites.Sword;
-import static sun.util.calendar.CalendarUtils.mod;
-import static sun.util.calendar.CalendarUtils.mod;
+
 
 public class WorldContactListener implements ContactListener {
     private static final String TAG = "WorldContactListener";
     private boolean gained = false;
+    public static boolean almaCollision;
+
     @Override
     public void beginContact(Contact contact) {
         try{
@@ -51,6 +55,14 @@ public class WorldContactListener implements ContactListener {
                     ((SoulKeeper)FixB.getUserData()).damaged();
                 }
                 break;
+                case SOULKEEPER_BIT | DOOR_BIT:
+                    if(FixA.getFilterData().categoryBits == SOULKEEPER_BIT) {
+                    ((SoulKeeper)FixA.getUserData()).screen1.chageMap();
+                } else {
+                    ((SoulKeeper)FixB.getUserData()).screen1.chageMap();
+                }
+                    break;
+                    
             case ENEMY_BIT | SWORD_BIT:
                 if(FixA.getFilterData().categoryBits == ENEMY_BIT) {
                     ((Enemy)FixA.getUserData()).damaged();
@@ -97,7 +109,16 @@ public class WorldContactListener implements ContactListener {
                 ((Enemy)FixA.getUserData()).reverseVelocity(true, false);
                 ((Enemy)FixB.getUserData()).reverseVelocity(true, false);
             break;
-
+            case ENEMY_BIT | SHIELD_BIT:
+                  if(FixA.getFilterData().categoryBits == SHIELD_BIT) {
+                    ((SoulKeeper)FixA.getUserData()).defense();
+                } else {
+                    ((SoulKeeper)FixB.getUserData()).defense();
+                }
+                break;
+            case DEFAULT_BIT | SOULKEEPER_BIT:
+                almaCollision = true;
+                break;
         }
         }catch(java.lang.ClassCastException e){};
     }

@@ -39,7 +39,7 @@ import com.mygdx.game.Utilities.MyInputProcessor;
 
 public class PlayScreen implements Screen{
     private History history;
-    private MyGdxGame game;
+    public MyGdxGame game;
     private OrthographicCamera camera;
     private Viewport view;
     private Hud hud;
@@ -57,7 +57,10 @@ public class PlayScreen implements Screen{
     public boolean down;
     public boolean right;
     public boolean left;
+    public boolean isOutside;
     private long waitTime;
+    private int dia=0;
+    private long waitTime2;
 
     public enum State {
         PAUSE,
@@ -70,12 +73,12 @@ public class PlayScreen implements Screen{
         this.game = game;
         camera = new OrthographicCamera();
         view = new FitViewport(game.width/ PPM, game.height / PPM,camera);
-       
+        isOutside = true;
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("mapa.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1/ PPM);
         camera.position.set((view.getWorldWidth() / 2), (view.getWorldHeight() / 2),0);
-
+        
         world = new World(new Vector2(0,-10), false);
         b2dr = new Box2DDebugRenderer();
         soulKeeper = new SoulKeeper(this);
@@ -95,6 +98,11 @@ public class PlayScreen implements Screen{
 
     }
     
+    public void chageMap()
+    {
+        
+        
+    }
     public void setUp()
     {
         up = true;
@@ -102,6 +110,7 @@ public class PlayScreen implements Screen{
             left = false;       
             down = false;   
     }
+    
     
     public void setDown()
     {
@@ -163,7 +172,6 @@ public class PlayScreen implements Screen{
 
     @Override
     public void render(float delta) {
-
         switch (state) {
             case RUN:
                 update(delta);
@@ -180,9 +188,26 @@ public class PlayScreen implements Screen{
                 game.batch.end();
                 game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
                 hud.stage.draw();
-                if(Gdx.input.isTouched()) {
+                /*if(Gdx.input.isTouched()) {
                     Dialog = new Dialog(game, "The poor children had now nowhere to play. They tried to play on the road, but the" +
                             " road was very dusty and full of hard stones, and they did not like it.", TimeUtils.nanoTime());
+                }*/
+                if(WorldContactListener.almaCollision){
+                    if(game.almas==0 && dia==0&& TimeUtils.nanoTime()-waitTime2>2000000000) {
+                        Dialog = new Dialog(game, "Pickup the soul of the dead.", TimeUtils.nanoTime());
+                        dia++;
+                        waitTime2=TimeUtils.nanoTime();
+                    }
+                    if(game.almas==0 && dia==1&& TimeUtils.nanoTime()-waitTime2>2000000000) {
+                        Dialog = new Dialog(game, "This is your mission: from now on, protect and collect the 7 souls of the people here.", TimeUtils.nanoTime());
+                        game.almas++;
+                        dia++;
+                        waitTime2=TimeUtils.nanoTime();
+                    }
+                    if(game.almas==1 && dia==2&& TimeUtils.nanoTime()-waitTime2>2000000000) {
+                        Dialog = new Dialog(game, "", TimeUtils.nanoTime());
+                        dia=0;
+                    }
                 }
                 game.batch.setProjectionMatrix(Dialog.stage.getCamera().combined);
                 Dialog.stage.draw();
