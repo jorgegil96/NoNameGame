@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.MyGdxGame;
 
 
@@ -16,11 +17,13 @@ import com.mygdx.game.MyGdxGame;
 public class mainMenuScreen implements Screen {
     final MyGdxGame game;
     OrthographicCamera camera;
+    long waitTime;
 
     public mainMenuScreen(final MyGdxGame gam) {
         game=gam;
         camera = new OrthographicCamera();
         camera.setToOrtho(false, game.width, game.height);
+        waitTime = TimeUtils.nanoTime();
     }
     @Override
     public void show() {
@@ -50,7 +53,7 @@ public class mainMenuScreen implements Screen {
         game.batch.end();
 
 
-        if(Gdx.input.isTouched()){
+        if(Gdx.input.isTouched() && TimeUtils.nanoTime()-waitTime>1000000000){
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos);

@@ -18,24 +18,19 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
 import static com.mygdx.game.MyGdxGame.PPM;
-import static com.mygdx.game.MyGdxGame.V_HEIGHT;
-import static com.mygdx.game.MyGdxGame.V_WIDTH;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.Enemy;
-import com.mygdx.game.Sprites.Demons;
 import com.mygdx.game.Sprites.SoulKeeper;
 import com.mygdx.game.Tools.B2WorldCreator;
 import com.mygdx.game.Tools.WorldContactListener;
 import com.mygdx.game.Utilities.MyInputProcessor;
 
-/**
- *
- * @author Juan
- */
 public class PlayScreen implements Screen{
     private MyGdxGame game;
     private OrthographicCamera camera;
@@ -46,8 +41,12 @@ public class PlayScreen implements Screen{
     private OrthogonalTiledMapRenderer renderer;
     private World world;
     private Box2DDebugRenderer b2dr;
+<<<<<<< HEAD
     public SoulKeeper soulKeeper;
     private Demons goomba;
+=======
+    private SoulKeeper soulKeeper;
+>>>>>>> 45d2238831550f3b59519dbc3b55c049ab007e04
     private B2WorldCreator creator;
     private TextureAtlas atlas;
     public boolean up;
@@ -58,8 +57,8 @@ public class PlayScreen implements Screen{
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
         this.game = game;
         camera = new OrthographicCamera();
-        view = new FitViewport(V_WIDTH/ PPM, V_HEIGHT / PPM,camera);
-        hud = new Hud(game.batch);
+        view = new FillViewport(400/ PPM, 208 / PPM,camera);
+        hud = new Hud(game);
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("SoulKeeper_Try4.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1/ PPM);
@@ -72,10 +71,12 @@ public class PlayScreen implements Screen{
         
         world.setContactListener(new WorldContactListener());
         world.setGravity(new Vector2(0,0));
+
         right = true;
         left = false;
         up = false;
         down = false;
+
         MyInputProcessor inputProcessor = new MyInputProcessor(this,soulKeeper);
         Gdx.input.setInputProcessor(inputProcessor);
     }
@@ -147,24 +148,7 @@ public class PlayScreen implements Screen{
         }
     }
     
-    public void update(float dt)
-    {
-        if(up)
-        {
-         Gdx.app.log("State", "Up");
-        }
-        else if(down)
-        {
-         Gdx.app.log("State", "Down");
-        }
-        else if(right)
-        {
-         Gdx.app.log("State", "Right");
-        }
-        else if(left)
-        {
-         Gdx.app.log("State", "Left");
-        }
+    public void update(float dt) {
         world.step(1/60f, 6, 2);
         soulKeeper.update(dt);
         for(Enemy enemy: creator.getDemons())
@@ -201,8 +185,7 @@ public class PlayScreen implements Screen{
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         soulKeeper.draw(game.batch);
-         for(Enemy enemy: creator.getDemons())
-        {
+        for(Enemy enemy: creator.getDemons()) {
             enemy.draw(game.batch);
         }
         game.batch.end();

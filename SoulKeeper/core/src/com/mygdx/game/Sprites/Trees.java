@@ -25,6 +25,6 @@ public class Trees extends InteractiveTileObject{
 
     @Override
     public void onHeadHit() {
-        
+
     }
 }

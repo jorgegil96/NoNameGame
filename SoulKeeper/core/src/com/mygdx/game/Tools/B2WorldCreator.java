@@ -15,12 +15,15 @@ import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
-import static com.mygdx.game.MyGdxGame.PPM;
 import com.mygdx.game.Screens.PlayScreen;
+<<<<<<< HEAD
 import com.mygdx.game.Sprites.Demons;
 import com.mygdx.game.Sprites.Ground;
 import com.mygdx.game.Sprites.SoulKeeper;
 import com.mygdx.game.Sprites.Trees;
+=======
+import com.mygdx.game.Sprites.*;
+>>>>>>> 45d2238831550f3b59519dbc3b55c049ab007e04
 
 /**
  *
@@ -47,6 +50,12 @@ public class B2WorldCreator {
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Ground(screen, rect);
         }
+
+        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
+            Rectangle rect = ((RectangleMapObject)object).getRectangle();
+            new NPC(screen, rect);
+        }
+
         
         demons = new Array<Demons>();
         for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
