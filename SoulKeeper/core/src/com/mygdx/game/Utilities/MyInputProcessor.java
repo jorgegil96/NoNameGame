@@ -99,9 +99,10 @@ public class MyInputProcessor implements InputProcessor {
                 vector2 = new Vector2(0, currentY);
             }
         }
-        if(keycode == Input.Keys.X)
+        if(keycode == Input.Keys.P)
         {
             soulKeeper.hit();
+            vector2 = new Vector2(0, 0);
         }
         if (vector2 != null) {
             soulKeeper.b2body.setLinearVelocity(vector2);

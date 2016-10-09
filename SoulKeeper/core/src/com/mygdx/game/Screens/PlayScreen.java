@@ -142,6 +142,7 @@ public class PlayScreen implements Screen{
         hud.update(dt);
         Dialog.update(dt);
         camera.position.x = soulKeeper.b2body.getPosition().x;
+        camera.position.y = soulKeeper.b2body.getPosition().y;
         camera.update();
         renderer.setView(camera);
     }
