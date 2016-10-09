@@ -5,9 +5,6 @@
  */
 package com.mygdx.game.Sprites;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -43,7 +40,9 @@ public class SoulKeeper extends Sprite{
     private Animation marioJump;
     private Animation marioRun;
     private float stateTimer;
-    private boolean runningRight;
+    private boolean runningRight, runningLeft, runningUp, runningDown;
+
+    float speed = 100.0f;
     
     public SoulKeeper(PlayScreen screen)
     {   
@@ -52,7 +51,11 @@ public class SoulKeeper extends Sprite{
         currentState = State.STANDING;
         previousState = State.STANDING;
         stateTimer = 0;
-        runningRight = true;
+
+        runningLeft = false;
+        runningRight = false;
+        runningDown = false;
+        runningUp = false;
         
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 1; i < 4; i++)
@@ -77,6 +80,7 @@ public class SoulKeeper extends Sprite{
     
     public void update(float dt)
     {
+        stateTimer += dt;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(dt));
     }
@@ -88,16 +92,16 @@ public class SoulKeeper extends Sprite{
         switch(currentState)
         {
             case UP:
-                region = marioStand;
+                region = marioRun.getKeyFrame(stateTimer, true /* loop */);
                 break;
             case LEFT:
-            region = marioStand;
-            break;
+                region = marioRun.getKeyFrame(stateTimer, true /* loop */);;
+                break;
             case RIGHT:
-                 region = marioStand;
+                 region = marioRun.getKeyFrame(stateTimer, true /* loop */);;
                 break;
             case DOWN:
-                 region = marioStand;
+                 region = marioRun.getKeyFrame(stateTimer, true /* loop */);;
                 break;
             case STANDING:
             default:
@@ -134,7 +138,7 @@ public class SoulKeeper extends Sprite{
         {
             return State.DOWN;
         }
-        else if(b2body.getLinearVelocity().y > 0)
+        else if(b2body.getLinearVelocity().x > 0)
         {
             return State.RIGHT;
         }
@@ -162,5 +166,37 @@ public class SoulKeeper extends Sprite{
         fdef.shape = head;
         fdef.isSensor = true;
         b2body.createFixture(fdef).setUserData("head");
+    }
+
+    public void setRunningUp(boolean runningUp) {
+        this.runningUp = runningUp;
+    }
+
+    public void setRunningDown(boolean runningDown) {
+        this.runningDown = runningDown;
+    }
+
+    public void setRunningRight(boolean runningRight) {
+        this.runningRight = runningRight;
+    }
+
+    public void setRunningLeft(boolean runningLeft) {
+        this.runningLeft = runningLeft;
+    }
+
+    public boolean isRunningUp() {
+        return runningUp;
+    }
+
+    public boolean isRunningDown() {
+        return runningDown;
+    }
+
+    public boolean isRunningRight() {
+        return runningRight;
+    }
+
+    public boolean isRunningLeft() {
+        return runningLeft;
     }
 }
