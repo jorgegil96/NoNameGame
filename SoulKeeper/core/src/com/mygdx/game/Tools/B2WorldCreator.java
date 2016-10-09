@@ -40,9 +40,19 @@ public class B2WorldCreator {
         FixtureDef fdef = new FixtureDef();
         Body body;
 
-        for(MapObject object: map.getLayers().get(1).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Trees(screen, rect);
+        }
+        
+        for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject)object).getRectangle();
+            new Houses(screen, rect);
+        }
+        
+        for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
+            Rectangle rect = ((RectangleMapObject)object).getRectangle();
+            new Door(screen, rect);
         }
 
         for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){

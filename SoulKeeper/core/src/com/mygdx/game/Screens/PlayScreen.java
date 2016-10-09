@@ -57,7 +57,7 @@ public class PlayScreen implements Screen{
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
         this.game = game;
         camera = new OrthographicCamera();
-        view = new FillViewport(400/ PPM, 208 / PPM,camera);
+        view = new FitViewport(game.width/ PPM, game.height / PPM,camera);
        
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("SoulKeeper_Try.tmx");

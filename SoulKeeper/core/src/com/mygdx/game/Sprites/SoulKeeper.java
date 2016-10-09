@@ -74,13 +74,7 @@ public class SoulKeeper extends Sprite{
 
         defineSoul();
 
-        CircleShape head = new CircleShape();
-        head.setPosition(new Vector2(16 / PPM, 4 / PPM));
-        head.setRadius(0/PPM);
-        fdef_sword.shape = head;
-        fdef_sword.filter.categoryBits = SWORD_BIT;
-        fdef_sword.filter.maskBits = DEFAULT_BIT | COIN_BIT | BRICK_BIT | OBJECT_BIT | ENEMY_BIT;
-        b2body.createFixture(fdef_sword).setUserData(this);
+        
         marioStand = new TextureRegion(getTexture(), 0, 0, 16, 30);
         setBounds(0,0,16/PPM,30/PPM);
         setRegion(marioStand);
@@ -166,7 +160,7 @@ public class SoulKeeper extends Sprite{
     public void defineSoul()
     {
         BodyDef bdef = new BodyDef();
-        bdef.position.set(32/PPM,32/PPM);
+        bdef.position.set(1250/PPM,400/PPM);
         bdef.type = BodyDef.BodyType.DynamicBody;
         b2body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
