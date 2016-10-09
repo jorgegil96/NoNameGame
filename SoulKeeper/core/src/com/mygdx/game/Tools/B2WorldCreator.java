@@ -51,8 +51,6 @@ public class B2WorldCreator {
             new Trees(screen, rect);
         }
         
-
-        
         for(MapObject object: map.getLayers().get("Casas").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Houses(screen, rect);
@@ -68,8 +66,6 @@ public class B2WorldCreator {
         /*for(MapObject object : map.getLayers().get("npc").getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
         }*/
-
- 
 
         demons = new Array<Demons>();
         for(MapObject object: map.getLayers().get("monstruos").getObjects().getByType(RectangleMapObject.class)){

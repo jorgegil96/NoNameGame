@@ -39,7 +39,7 @@ import com.mygdx.game.Utilities.MyInputProcessor;
 
 public class PlayScreen implements Screen{
     private History history;
-    private MyGdxGame game;
+    public MyGdxGame game;
     private OrthographicCamera camera;
     private Viewport view;
     private Hud hud;

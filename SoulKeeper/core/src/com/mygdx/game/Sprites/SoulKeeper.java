@@ -22,6 +22,7 @@ import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
 import com.mygdx.game.Screens.PlayScreen;
 
 import static com.mygdx.game.MyGdxGame.*;
+import com.mygdx.game.Screens.mainMenuScreen;
 
 public class SoulKeeper extends Sprite{
     public enum State {UP, DOWN, LEFT, RIGHT, STANDING};
@@ -268,6 +269,10 @@ public class SoulKeeper extends Sprite{
         if(life > 0)
         {
             life -= 0.1;
+        }
+        else
+        {
+            screen1.game.setScreen(new mainMenuScreen(screen1.game));
         }
     }
 

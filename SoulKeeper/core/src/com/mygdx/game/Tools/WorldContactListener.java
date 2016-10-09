@@ -113,7 +113,6 @@ public class WorldContactListener implements ContactListener {
                     ((SoulKeeper)FixB.getUserData()).defense();
                 }
                 break;
-
         }
         }catch(java.lang.ClassCastException e){};
     }
