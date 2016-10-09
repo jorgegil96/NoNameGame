@@ -13,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.Manifold;
 import com.mygdx.game.Sprites.Enemy;
 
 import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
+import static com.mygdx.game.MyGdxGame.DOOR_BIT;
 import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
 import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
 import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
@@ -21,8 +22,7 @@ import com.mygdx.game.Sprites.Demons;
 
 import com.mygdx.game.Sprites.SoulKeeper;
 import com.mygdx.game.Sprites.Sword;
-import static sun.util.calendar.CalendarUtils.mod;
-import static sun.util.calendar.CalendarUtils.mod;
+
 
 public class WorldContactListener implements ContactListener {
     private static final String TAG = "WorldContactListener";
@@ -51,6 +51,14 @@ public class WorldContactListener implements ContactListener {
                     ((SoulKeeper)FixB.getUserData()).damaged();
                 }
                 break;
+                case SOULKEEPER_BIT | DOOR_BIT:
+                    if(FixA.getFilterData().categoryBits == SOULKEEPER_BIT) {
+                    ((SoulKeeper)FixA.getUserData()).screen1.chageMap();
+                } else {
+                    ((SoulKeeper)FixB.getUserData()).screen1.chageMap();
+                }
+                    break;
+                    
             case ENEMY_BIT | SWORD_BIT:
                 if(FixA.getFilterData().categoryBits == ENEMY_BIT) {
                     ((Enemy)FixA.getUserData()).damaged();

@@ -8,7 +8,6 @@ package com.mygdx.game.Sprites;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.physics.box2d.World;
-import static com.mygdx.game.MyGdxGame.COIN_BIT;
 import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
 import com.mygdx.game.Screens.PlayScreen;
 

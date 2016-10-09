@@ -30,6 +30,11 @@ import com.mygdx.game.MyGdxGame.*;
  */
 public class B2WorldCreator {
     private Array<Demons> demons;
+    private Array<Trees> trees;
+    private Array<Houses> houses;
+    private Array<Door> door;
+    private Array<Ground> ground;
+    private Array<NPC> npc;
     private SoulKeeper player1;
     public B2WorldCreator(PlayScreen screen, SoulKeeper player){
         player1 = player;
@@ -39,30 +44,40 @@ public class B2WorldCreator {
         PolygonShape shape = new PolygonShape();
         FixtureDef fdef = new FixtureDef();
         Body body;
-
+        
+        trees = new Array<Trees>();
         for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Trees(screen, rect);
+            trees.add(new Trees(screen, rect));
         }
         
+        houses = new Array<Houses>();
         for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Houses(screen, rect);
+            houses.add(new Houses(screen, rect));
         }
         
+        door = new Array<Door>();
         for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Door(screen, rect);
+            door.add(new Door(screen, rect));
         }
-
+        
+        ground = new Array<Ground>();
         for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Ground(screen, rect);
+            ground.add(new Ground(screen, rect));
         }
-
+        
+        npc = new Array<NPC>();
         for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new NPC(screen, rect);
+            npc.add(new NPC(screen, rect));
         }
 
 
@@ -75,5 +90,21 @@ public class B2WorldCreator {
 
     public Array<Demons> getDemons(){
         return demons;
+    }
+    
+    public Array<Trees> getTrees(){
+        return trees;
+    }
+    
+    public Array<Houses> getHouses(){
+        return houses;
+    }
+    
+    public Array<Ground> getGround(){
+        return ground;
+    }
+    
+    public Array<NPC> getNPC(){
+        return npc;
     }
 }

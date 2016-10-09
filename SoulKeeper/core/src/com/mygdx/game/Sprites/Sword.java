@@ -22,8 +22,8 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.utils.Array;
 import static com.mygdx.game.MyGdxGame.BRICK_BIT;
-import static com.mygdx.game.MyGdxGame.COIN_BIT;
 import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
+import static com.mygdx.game.MyGdxGame.DOOR_BIT;
 import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
 import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
 import static com.mygdx.game.MyGdxGame.PPM;
@@ -162,7 +162,7 @@ public class Sword extends Sprite {
         shape.setRadius(3 / PPM);
         fdef.filter.categoryBits = SWORD_BIT;
         fdef.filter.maskBits = DEFAULT_BIT |
-                COIN_BIT |
+                DOOR_BIT |
                 BRICK_BIT |
                 ENEMY_BIT |
                 OBJECT_BIT;

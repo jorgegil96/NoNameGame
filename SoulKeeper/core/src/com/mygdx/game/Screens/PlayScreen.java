@@ -49,21 +49,23 @@ public class PlayScreen implements Screen{
     public SoulKeeper soulKeeper;
     private B2WorldCreator creator;
     private TextureAtlas atlas;
+    private InsideHouse house;
     public boolean up;
     public boolean down;
     public boolean right;
     public boolean left;
+    public boolean isOutside;
     public PlayScreen(MyGdxGame game){
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
         this.game = game;
         camera = new OrthographicCamera();
         view = new FitViewport(game.width/ PPM, game.height / PPM,camera);
-       
+        isOutside = true;
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("SoulKeeper_Try.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1/ PPM);
         camera.position.set((view.getWorldWidth() / 2), (view.getWorldHeight() / 2),0);
-
+        
         world = new World(new Vector2(0,-10), false);
         b2dr = new Box2DDebugRenderer();
         soulKeeper = new SoulKeeper(this);
@@ -83,6 +85,21 @@ public class PlayScreen implements Screen{
 
     }
     
+    public void chageMap()
+    {
+        if(isOutside)
+        {
+            game.setScreen(new InsideHouse(game));
+        }
+        else
+        {
+            soulKeeper.translate(300, 300);
+            map = mapLoader.load("SoulKeeper_Try.tmx");
+            isOutside = true;
+            
+        }
+        
+    }
     public void setUp()
     {
         up = true;
@@ -90,6 +107,7 @@ public class PlayScreen implements Screen{
             left = false;       
             down = false;   
     }
+    
     
     public void setDown()
     {
@@ -186,7 +204,7 @@ public class PlayScreen implements Screen{
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         renderer.render();
-        b2dr.render(world, camera.combined);
+       // b2dr.render(world, camera.combined);
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         soulKeeper.draw(game.batch);

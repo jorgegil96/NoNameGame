@@ -14,7 +14,6 @@ import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
 
 import static com.mygdx.game.MyGdxGame.BRICK_BIT;
-import static com.mygdx.game.MyGdxGame.COIN_BIT;
 import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
 import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
 import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
@@ -40,7 +39,7 @@ public class SoulKeeper extends Sprite{
 
     float speed = 100.0f;
     private Sword sword;
-    private PlayScreen screen1;
+    public PlayScreen screen1;
     private Array<Sword> swords;
     private FixtureDef fdef_sword = new FixtureDef();
     private float life;
@@ -167,7 +166,7 @@ public class SoulKeeper extends Sprite{
         CircleShape shape = new CircleShape();
         shape.setRadius(12/PPM);
         fdef.filter.categoryBits = SOULKEEPER_BIT;
-        fdef.filter.maskBits = DEFAULT_BIT | COIN_BIT | BRICK_BIT | OBJECT_BIT | ENEMY_BIT | NPC_BIT;
+        fdef.filter.maskBits = DEFAULT_BIT | DOOR_BIT | BRICK_BIT | OBJECT_BIT | ENEMY_BIT | NPC_BIT;
         fdef.shape = shape;
         fixture = b2body.createFixture(fdef);
         fixture.setUserData(this);
