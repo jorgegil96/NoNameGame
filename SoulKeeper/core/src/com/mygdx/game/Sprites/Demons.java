@@ -116,7 +116,7 @@ public class Demons extends Enemy{
         b2body = world.createBody(bdef);
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
-        shape.setRadius(100/PPM);
+        shape.setRadius(6/PPM);
         fdef.filter.categoryBits = ENEMY_BIT;
         fdef.filter.maskBits = DEFAULT_BIT | DOOR_BIT | ENEMY_BIT | OBJECT_BIT | SOULKEEPER_BIT | SWORD_BIT;
         fdef.shape = shape;
