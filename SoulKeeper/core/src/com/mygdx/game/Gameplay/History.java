@@ -18,15 +18,16 @@ public class History {
     public void part1(){
         if(game.almas==0 && dia==0) {
             Dialog = new Dialog(game, "This door is not locked.", TimeUtils.nanoTime());
-            game.almas++;
+            dia++;
         }
         if(game.almas==0 && dia==1) {
             Dialog = new Dialog(game, "Pickup the soul of the dead.", TimeUtils.nanoTime());
-            game.almas++;
+            dia++;
         }
         if(game.almas==0 && dia==2) {
             Dialog = new Dialog(game, "This is your mission: from now on, protect and collect the 7 souls of the people here.", TimeUtils.nanoTime());
             game.almas++;
+            dia=0;
         }
         }
 

@@ -15,6 +15,7 @@ import com.mygdx.game.Sprites.Enemy;
 import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
 import static com.mygdx.game.MyGdxGame.DOOR_BIT;
 import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
+import static com.mygdx.game.MyGdxGame.NPC_BIT;
 import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
 import static com.mygdx.game.MyGdxGame.SHIELD_BIT;
 import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
@@ -28,6 +29,8 @@ import com.mygdx.game.Sprites.Sword;
 public class WorldContactListener implements ContactListener {
     private static final String TAG = "WorldContactListener";
     private boolean gained = false;
+    public static boolean almaCollision;
+
     @Override
     public void beginContact(Contact contact) {
         try{
@@ -112,6 +115,9 @@ public class WorldContactListener implements ContactListener {
                 } else {
                     ((SoulKeeper)FixB.getUserData()).defense();
                 }
+                break;
+            case DEFAULT_BIT | SOULKEEPER_BIT:
+                almaCollision = true;
                 break;
         }
         }catch(java.lang.ClassCastException e){};

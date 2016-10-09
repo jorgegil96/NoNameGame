@@ -32,7 +32,7 @@ import com.mygdx.game.Sprites.SoulKeeper;
 public class Hud implements Disposable{
 
 
-
+    private int souls;
     private MyGdxGame game;
     public Stage stage;
     private Viewport view;
