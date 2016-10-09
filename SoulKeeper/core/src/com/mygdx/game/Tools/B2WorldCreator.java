@@ -34,7 +34,7 @@ public class B2WorldCreator {
     private Array<Houses> houses;
     private Array<Door> door;
     private Array<Ground> ground;
-    private Array<NPC> npc;
+    private Array<Souls> souls;
     private SoulKeeper player1;
     public B2WorldCreator(PlayScreen screen, SoulKeeper player){
         player1 = player;
@@ -57,10 +57,12 @@ public class B2WorldCreator {
         }
         
         
-      /*  for(MapObject object: map.getLayers().get("Door").getObjects().getByType(RectangleMapObject.class)){
+        souls = new Array<Souls>(); 
+       for(MapObject object: map.getLayers().get("almas").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Door(screen, rect);
-        }*/
+            souls.add(new Souls(screen, rect.getX() / MyGdxGame.PPM, rect.getY() / MyGdxGame.PPM, player1));
+        }
        
         
         /*for(MapObject object : map.getLayers().get("npc").getObjects().getByType(RectangleMapObject.class)) {

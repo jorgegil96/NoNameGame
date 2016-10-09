@@ -20,6 +20,7 @@ import com.badlogic.gdx.utils.Array;
 import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
 import static com.mygdx.game.MyGdxGame.DOOR_BIT;
 import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
+import static com.mygdx.game.MyGdxGame.NPC_BIT;
 import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
 import static com.mygdx.game.MyGdxGame.PPM;
 import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
@@ -46,7 +47,6 @@ public class Souls extends Enemy{
         screen1 = screen;
         setToDestroy = false;
         destroyed = false;
-        lives = 3;
 
         frames = new Array<TextureRegion>();
         frames.add(new TextureRegion(texture, 1, 87, 89, 40));
@@ -82,7 +82,7 @@ public class Souls extends Enemy{
         FixtureDef fdef = new FixtureDef();
         CircleShape shape = new CircleShape();
         shape.setRadius(6/PPM);
-        fdef.filter.categoryBits = ENEMY_BIT;
+        fdef.filter.categoryBits = NPC_BIT;
         fdef.filter.maskBits = DEFAULT_BIT | DOOR_BIT | ENEMY_BIT | OBJECT_BIT | SOULKEEPER_BIT | SWORD_BIT;
         fdef.shape = shape;
         b2body.createFixture(fdef).setUserData(this);
