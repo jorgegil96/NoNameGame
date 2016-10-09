@@ -31,10 +31,6 @@ import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
 import static com.mygdx.game.MyGdxGame.SWORD_BIT;
 import com.mygdx.game.Screens.PlayScreen;
 
-/**
- *
- * @author Juan
- */
 public class Sword extends Sprite {
 
   PlayScreen screen;

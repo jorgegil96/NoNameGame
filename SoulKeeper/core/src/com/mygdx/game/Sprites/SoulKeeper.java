@@ -9,13 +9,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
+
 import static com.mygdx.game.MyGdxGame.BRICK_BIT;
 import static com.mygdx.game.MyGdxGame.COIN_BIT;
 import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
@@ -26,22 +22,21 @@ import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
 import static com.mygdx.game.MyGdxGame.SWORD_BIT;
 import com.mygdx.game.Screens.PlayScreen;
 
+import static com.mygdx.game.MyGdxGame.*;
 
-/**
- *
- * @author Juan
- */
 public class SoulKeeper extends Sprite{
     public enum State {UP, DOWN, LEFT, RIGHT, STANDING};
     public State currentState;
     public State previousState;
     public World world;
     public Body b2body;
+    public Fixture fixture;
     private TextureRegion marioStand;
     private Animation marioJump;
     private Animation marioRun;
     private float stateTimer;
     private boolean runningRight, runningLeft, runningUp, runningDown;
+
     float speed = 100.0f;
     private Sword sword;
     private PlayScreen screen1;
@@ -175,9 +170,10 @@ public class SoulKeeper extends Sprite{
         CircleShape shape = new CircleShape();
         shape.setRadius(12/PPM);
         fdef.filter.categoryBits = SOULKEEPER_BIT;
-        fdef.filter.maskBits = DEFAULT_BIT | COIN_BIT | BRICK_BIT | OBJECT_BIT | ENEMY_BIT;
+        fdef.filter.maskBits = DEFAULT_BIT | COIN_BIT | BRICK_BIT | OBJECT_BIT | ENEMY_BIT | NPC_BIT;
         fdef.shape = shape;
-        b2body.createFixture(fdef).setUserData(this);
+        fixture = b2body.createFixture(fdef);
+        fixture.setUserData(this);
     }
 
     public void setRunningUp(boolean runningUp) {
@@ -211,16 +207,15 @@ public class SoulKeeper extends Sprite{
     public boolean isRunningLeft() {
         return runningLeft;
     }
-    
-    public float getX()
-     {
+
+    public float getX() {
          return b2body.getPosition().x;
-     }
+    }
      
-      public float getY()
-     {
+    public float getY()
+    {
          return b2body.getPosition().y;
-     }
+    }
       
     public Array<Sword> getSwords(){
         return swords;

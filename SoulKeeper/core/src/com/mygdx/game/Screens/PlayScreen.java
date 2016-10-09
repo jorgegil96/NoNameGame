@@ -26,16 +26,11 @@ import com.mygdx.game.MyGdxGame;
 import static com.mygdx.game.MyGdxGame.PPM;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.Enemy;
-import com.mygdx.game.Sprites.Demons;
 import com.mygdx.game.Sprites.SoulKeeper;
 import com.mygdx.game.Tools.B2WorldCreator;
 import com.mygdx.game.Tools.WorldContactListener;
 import com.mygdx.game.Utilities.MyInputProcessor;
 
-/**
- *
- * @author Juan
- */
 public class PlayScreen implements Screen{
     private MyGdxGame game;
     private OrthographicCamera camera;
@@ -47,7 +42,6 @@ public class PlayScreen implements Screen{
     private World world;
     private Box2DDebugRenderer b2dr;
     private SoulKeeper soulKeeper;
-    private Demons goomba;
     private B2WorldCreator creator;
     private TextureAtlas atlas;
     public boolean up;
@@ -70,10 +64,12 @@ public class PlayScreen implements Screen{
         soulKeeper = new SoulKeeper(this);
         world.setContactListener(new WorldContactListener());
         world.setGravity(new Vector2(0,0));
+
         right = true;
         left = false;
         up = false;
         down = false;
+
         MyInputProcessor inputProcessor = new MyInputProcessor(this,soulKeeper);
         Gdx.input.setInputProcessor(inputProcessor);
     }
@@ -145,24 +141,7 @@ public class PlayScreen implements Screen{
         }
     }
     
-    public void update(float dt)
-    {
-        if(up)
-        {
-         Gdx.app.log("State", "Up");
-        }
-        else if(down)
-        {
-         Gdx.app.log("State", "Down");
-        }
-        else if(right)
-        {
-         Gdx.app.log("State", "Right");
-        }
-        else if(left)
-        {
-         Gdx.app.log("State", "Left");
-        }
+    public void update(float dt) {
         world.step(1/60f, 6, 2);
         soulKeeper.update(dt);
         for(Enemy enemy: creator.getDemons())
@@ -199,8 +178,7 @@ public class PlayScreen implements Screen{
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         soulKeeper.draw(game.batch);
-         for(Enemy enemy: creator.getDemons())
-        {
+        for(Enemy enemy: creator.getDemons()) {
             enemy.draw(game.batch);
         }
         game.batch.end();
