@@ -25,7 +25,7 @@ public class MyGdxGame extends Game {
 	public static final float PPM = 100;
 	public static final short DEFAULT_BIT = 1;
 	public static final short SOULKEEPER_BIT = 2;
-	public static final short BRICK_BIT = 4;
+	public static final short SHIELD_BIT = 4;
 	public static final short DOOR_BIT = 8;
 	public static final short DESTROYED_BIT = 16;
 	public static final short OBJECT_BIT = 32;

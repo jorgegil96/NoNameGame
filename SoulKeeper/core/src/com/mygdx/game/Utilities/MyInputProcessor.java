@@ -99,9 +99,14 @@ public class MyInputProcessor implements InputProcessor {
                 vector2 = new Vector2(0, currentY);
             }
         }
-        if(keycode == Input.Keys.P)
+        if(keycode == Input.Keys.P || keycode == Input.Keys.X)
         {
             soulKeeper.hit();
+            vector2 = new Vector2(0, 0);
+        }
+        if(keycode == Input.Keys.Z || keycode == Input.Keys.O)
+        {
+            soulKeeper.defense();
             vector2 = new Vector2(0, 0);
         }
         if (vector2 != null) {

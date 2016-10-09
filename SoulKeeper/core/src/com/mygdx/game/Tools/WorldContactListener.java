@@ -16,6 +16,7 @@ import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
 import static com.mygdx.game.MyGdxGame.DOOR_BIT;
 import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
 import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
+import static com.mygdx.game.MyGdxGame.SHIELD_BIT;
 import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
 import static com.mygdx.game.MyGdxGame.SWORD_BIT;
 import com.mygdx.game.Sprites.Demons;
@@ -105,6 +106,13 @@ public class WorldContactListener implements ContactListener {
                 ((Enemy)FixA.getUserData()).reverseVelocity(true, false);
                 ((Enemy)FixB.getUserData()).reverseVelocity(true, false);
             break;
+            case ENEMY_BIT | SHIELD_BIT:
+                  if(FixA.getFilterData().categoryBits == SHIELD_BIT) {
+                    ((SoulKeeper)FixA.getUserData()).defense();
+                } else {
+                    ((SoulKeeper)FixB.getUserData()).defense();
+                }
+                break;
 
         }
         }catch(java.lang.ClassCastException e){};

@@ -52,18 +52,12 @@ public class PlayScreen implements Screen{
     public SoulKeeper soulKeeper;
     private B2WorldCreator creator;
     private TextureAtlas atlas;
-<<<<<<< HEAD
-    private InsideHouse house;
-=======
     private State state = State.RUN;
->>>>>>> 83815bd655828f5d9496751da9a56240a7e244d1
     public boolean up;
     public boolean down;
     public boolean right;
     public boolean left;
-<<<<<<< HEAD
     public boolean isOutside;
-=======
     private long waitTime;
 
     public enum State {
@@ -72,7 +66,6 @@ public class PlayScreen implements Screen{
         RESUME,
     }
 
->>>>>>> 83815bd655828f5d9496751da9a56240a7e244d1
     public PlayScreen(MyGdxGame game){
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
         this.game = game;
@@ -105,17 +98,7 @@ public class PlayScreen implements Screen{
     
     public void chageMap()
     {
-        if(isOutside)
-        {
-            game.setScreen(new InsideHouse(game));
-        }
-        else
-        {
-            soulKeeper.translate(300, 300);
-            map = mapLoader.load("SoulKeeper_Try.tmx");
-            isOutside = true;
-            
-        }
+        
         
     }
     public void setUp()
@@ -187,7 +170,6 @@ public class PlayScreen implements Screen{
 
     @Override
     public void render(float delta) {
-<<<<<<< HEAD
         update(delta);
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -203,9 +185,10 @@ public class PlayScreen implements Screen{
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
         if(Gdx.input.isTouched()) {
-            Dialog = new Dialog(game, this, "The poor children had now nowhere to play. They tried to play on the road, but the" +
+            Dialog = new Dialog(game, "The poor children had now nowhere to play. They tried to play on the road, but the" +
                     " road was very dusty and full of hard stones, and they did not like it.", TimeUtils.nanoTime());
-=======
+        }
+
 
         switch (state) {
             case RUN:
@@ -289,7 +272,6 @@ public class PlayScreen implements Screen{
                     waitTime=TimeUtils.nanoTime();
                 }
                 break;
->>>>>>> 83815bd655828f5d9496751da9a56240a7e244d1
         }
     }
 
