@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -34,7 +35,8 @@ public class MyGdxGame extends Game {
 	public int height;
 	public int almas=3;
 	public float vida=1f;
-        
+	private Preferences prefs;
+
 
 	public void button(int y, String text, Color fillColor){
 		shapeRenderer.setProjectionMatrix(camera.combined);
@@ -76,8 +78,11 @@ public class MyGdxGame extends Game {
 		parameter2.size = height/12;
 		font = gen2.generateFont(parameter2);
 		gen2.dispose();
+		prefs = Gdx.app.getPreferences("Saved game");
+		almas = prefs.getInteger("Almas capturadas", 0);
+		vida = prefs.getFloat("Vida", 1.0f);
 		setScreen(new mainMenuScreen(this));
-                
+
 	}
         
         public void setLife(float life)
