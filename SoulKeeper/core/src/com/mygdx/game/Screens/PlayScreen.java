@@ -58,7 +58,7 @@ public class PlayScreen implements Screen{
         view = new FillViewport(400/ PPM, 208 / PPM,camera);
        
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("SoulKeeper_Try4.tmx");
+        map = mapLoader.load("SoulKeeper_Try.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1/ PPM);
         camera.position.set((view.getWorldWidth() / 2), (view.getWorldHeight() / 2),0);
 

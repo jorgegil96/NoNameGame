@@ -49,10 +49,10 @@ public class Hud implements Disposable{
                 screen1 = screen;
         view = new FitViewport(game.width, game.height, new OrthographicCamera());
         stage = new Stage(view, game.batch);
-        alma = new Texture(Gdx.files.internal("sprites/alma.png"));
-        notAlma = new Texture(Gdx.files.internal("sprites/almaShadow.png"));
-        life = new Texture(Gdx.files.internal("sprites/life.png"));
-        lifeBg = new Texture(Gdx.files.internal("sprites/lifebg.png"));
+        alma = new Texture(Gdx.files.internal("images/alma.png"));
+        notAlma = new Texture(Gdx.files.internal("images/almaShadow.png"));
+        life = new Texture(Gdx.files.internal("images/life.png"));
+        lifeBg = new Texture(Gdx.files.internal("images/lifebg.png"));
 
         while(i<game.almas) {
             almaImg = new Image(alma);
