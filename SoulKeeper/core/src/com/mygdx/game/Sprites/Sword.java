@@ -181,7 +181,7 @@ public class Sword extends Sprite {
         
         setRegion(fireAnimation.getKeyFrame(stateTime, true));
         setPosition(player1.getX() - player1.getWidth() / 2, player1.getY() - player1.getHeight() / 2);
-        if((stateTime > 0.5 || setToDestroy) && !destroyed) {
+        if((stateTime > 0.2 || setToDestroy && stateTime > 0.2) && !destroyed) {
             world.destroyBody(b2body);
             destroyed = true;
         }

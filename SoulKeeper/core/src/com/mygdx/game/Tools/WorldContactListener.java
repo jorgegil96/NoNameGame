@@ -17,19 +17,21 @@ import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
 import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
 import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
 import static com.mygdx.game.MyGdxGame.SWORD_BIT;
+import com.mygdx.game.Sprites.Demons;
 
 import com.mygdx.game.Sprites.SoulKeeper;
 import com.mygdx.game.Sprites.Sword;
+import static sun.util.calendar.CalendarUtils.mod;
+import static sun.util.calendar.CalendarUtils.mod;
 
 public class WorldContactListener implements ContactListener {
     private static final String TAG = "WorldContactListener";
-
+    private boolean gained = false;
     @Override
     public void beginContact(Contact contact) {
         try{
         Fixture FixA = contact.getFixtureA();
         Fixture FixB = contact.getFixtureB();
-
         int cDef = FixA.getFilterData().categoryBits | FixB.getFilterData().categoryBits;
 
         switch(cDef)
@@ -52,6 +54,15 @@ public class WorldContactListener implements ContactListener {
             case ENEMY_BIT | SWORD_BIT:
                 if(FixA.getFilterData().categoryBits == ENEMY_BIT) {
                     ((Enemy)FixA.getUserData()).damaged();
+                    if((((Enemy)FixA.getUserData()).getLives() % 2) == 0 && !gained)
+                    {
+                        gained = true;
+                        ((Demons)FixA.getUserData()).gainLife();
+                    }
+                    else
+                    {
+                        gained = false;
+                    }
                     if(FixB.getFilterData().categoryBits == SWORD_BIT)
                     {
                         ((Sword)FixB.getUserData()).setToDestroy();
@@ -60,6 +71,15 @@ public class WorldContactListener implements ContactListener {
                 else 
                 {
                     ((Enemy)FixB.getUserData()).damaged();
+                    if((((Enemy)FixB.getUserData()).getLives() % 2) == 0 && !gained)
+                    {
+                        gained = true;
+                        ((Demons)FixB.getUserData()).gainLife();
+                    }
+                    else
+                    {
+                        gained = false;
+                    }
                     if(FixA.getFilterData().categoryBits == SWORD_BIT)
                     {
                         ((Sword)FixA.getUserData()).setToDestroy();
