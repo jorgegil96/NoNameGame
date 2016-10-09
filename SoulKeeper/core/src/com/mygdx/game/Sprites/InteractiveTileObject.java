@@ -41,14 +41,14 @@ public abstract class InteractiveTileObject {
         PolygonShape shape = new PolygonShape();
         
         bdef.type = BodyDef.BodyType.StaticBody;
-            bdef.position.set((bounds .getX() + bounds .getWidth() / 2)/PPM, (bounds .getY() + bounds .getHeight() / 2)/PPM);
-            body = world.createBody(bdef);
-            shape.setAsBox((bounds .getWidth() / 2)/PPM, (bounds .getHeight() / 2)/PPM);
-            fdef.shape = shape;
-            body.createFixture(fdef);
-            fixture = body.createFixture(fdef);
+        bdef.position.set((bounds .getX() + bounds .getWidth() / 2)/PPM, (bounds .getY() + bounds .getHeight() / 2)/PPM);
+        body = world.createBody(bdef);
+        shape.setAsBox((bounds .getWidth() / 2)/PPM, (bounds .getHeight() / 2)/PPM);
+        fdef.shape = shape;
+        body.createFixture(fdef);
+        fixture = body.createFixture(fdef);
     }
-    
+
     public abstract void onHeadHit();
     public void setCategoryFilter(short filterBit){
         Filter filter = new Filter();

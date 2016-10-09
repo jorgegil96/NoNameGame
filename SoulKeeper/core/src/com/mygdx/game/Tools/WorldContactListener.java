@@ -11,74 +11,41 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
-import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
-import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
-import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
 import com.mygdx.game.Sprites.Enemy;
 import com.mygdx.game.Sprites.InteractiveTileObject;
+import com.mygdx.game.Sprites.SoulKeeper;
+
+import static com.mygdx.game.MyGdxGame.*;
 
 /**
  *
  * @author Juan
  */
-public class WorldContactListener implements ContactListener{
+public class WorldContactListener implements ContactListener {
+    private static final String TAG = "WorldContactListener";
 
     @Override
     public void beginContact(Contact contact) {
         Fixture FixA = contact.getFixtureA();
         Fixture FixB = contact.getFixtureB();
-        Fixture head;
-        Fixture object;
+
         int cDef = FixA.getFilterData().categoryBits | FixB.getFilterData().categoryBits;
-        if(FixA.getUserData() == "head" || FixB.getUserData() == "head")
-        {
-            if(FixA.getUserData() == "head")
-            {
-                head = FixA;
-                object = FixB;
-            }
-            else
-            {
-                head = FixB;
-                object = FixA;
-            }
-            if(object.getUserData() != null)
-            {
-                ((InteractiveTileObject) object.getUserData()).onHeadHit();
-            }
-        }
-        switch(cDef)
-        {
+
+        switch(cDef) {
             case ENEMY_BIT | SOULKEEPER_BIT:
-                if(FixA.getFilterData().categoryBits == ENEMY_BIT)
-                {
+                if(FixA.getFilterData().categoryBits == ENEMY_BIT) {
                     ((Enemy)FixA.getUserData()).hitOnHead();
-                }
-            else
-                {
+                } else {
                     ((Enemy)FixB.getUserData()).hitOnHead();
                 }
-            break;
+                break;
             case ENEMY_BIT | OBJECT_BIT:
-                if(FixA.getFilterData().categoryBits == ENEMY_BIT)
-                {
+                if(FixA.getFilterData().categoryBits == ENEMY_BIT) {
                     ((Enemy)FixA.getUserData()).reverseVelocity(true, false);
-                }
-            else
-                {
+                } else {
                     ((Enemy)FixB.getUserData()).reverseVelocity(true, false);
                 }
-            break;
-            case SOULKEEPER_BIT | OBJECT_BIT:
-                if(FixA.getFilterData().categoryBits == OBJECT_BIT)
-                {
-                    
-                }
-            else
-                {
-                    
-                }
-            break;
+                break;
             case ENEMY_BIT | ENEMY_BIT:
                 ((Enemy)FixA.getUserData()).reverseVelocity(true, false);
                 ((Enemy)FixB.getUserData()).reverseVelocity(true, false);

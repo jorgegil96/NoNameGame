@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="16" height="8" tilewidth="32" tileheight="32" nextobjectid="63">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="16" height="8" tilewidth="32" tileheight="32" nextobjectid="73">
  <tileset firstgid="1" name="SNES - The Legend of Zelda A Link to the Past - Fairy Cave Area" tilewidth="32" tileheight="32" tilecount="320" columns="20">
   <image source="SNES - The Legend of Zelda A Link to the Past - Fairy Cave Area.png" width="649" height="512"/>
+ </tileset>
+ <tileset firstgid="321" name="Mario_and_Enemies" tilewidth="16" tileheight="32" tilecount="64" columns="64">
+  <image source="Mario_and_Enemies.png" trans="ff00ff" width="1024" height="32"/>
  </tileset>
  <layer name="Background" width="16" height="8">
   <data encoding="csv">
@@ -68,5 +71,24 @@
   <object id="59" x="164" y="19" width="20" height="35"/>
   <object id="60" x="173" y="55" width="29" height="7"/>
   <object id="61" x="183" y="64" width="26" height="9"/>
+ </objectgroup>
+ <objectgroup name="NPC" visible="0">
+  <object id="66" x="225" y="200" width="14" height="23" visible="0"/>
+  <object id="67" x="128" y="72" width="16" height="24" visible="0"/>
+ </objectgroup>
+ <layer name="NPC" width="16" height="8">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,357,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,357,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup name="Trigger">
+  <object id="68" name="Viejo" x="224" y="221" width="18" height="30"/>
  </objectgroup>
 </map>

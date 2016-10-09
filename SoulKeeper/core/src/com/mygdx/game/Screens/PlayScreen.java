@@ -7,7 +7,6 @@ package com.mygdx.game.Screens;
 
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -26,7 +25,6 @@ import static com.mygdx.game.MyGdxGame.V_HEIGHT;
 import static com.mygdx.game.MyGdxGame.V_WIDTH;
 import com.mygdx.game.Scenes.Hud;
 import com.mygdx.game.Sprites.Enemy;
-import com.mygdx.game.Sprites.Demons;
 import com.mygdx.game.Sprites.SoulKeeper;
 import com.mygdx.game.Tools.B2WorldCreator;
 import com.mygdx.game.Tools.WorldContactListener;
@@ -47,7 +45,6 @@ public class PlayScreen implements Screen{
     private World world;
     private Box2DDebugRenderer b2dr;
     private SoulKeeper soulKeeper;
-    private Demons goomba;
     private B2WorldCreator creator;
     private TextureAtlas atlas;
     
@@ -68,7 +65,7 @@ public class PlayScreen implements Screen{
         world.setContactListener(new WorldContactListener());
         world.setGravity(new Vector2(0,0));
 
-        MyInputProcessor inputProcessor = new MyInputProcessor(soulKeeper);
+        MyInputProcessor inputProcessor = new MyInputProcessor(this, soulKeeper);
         Gdx.input.setInputProcessor(inputProcessor);
     }
     
@@ -110,8 +107,7 @@ public class PlayScreen implements Screen{
         game.batch.setProjectionMatrix(camera.combined);
         game.batch.begin();
         soulKeeper.draw(game.batch);
-         for(Enemy enemy: creator.getDemons())
-        {
+        for(Enemy enemy: creator.getDemons()) {
             enemy.draw(game.batch);
         }
         game.batch.end();

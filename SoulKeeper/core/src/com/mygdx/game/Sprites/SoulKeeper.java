@@ -9,38 +9,25 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.CircleShape;
-import com.badlogic.gdx.physics.box2d.EdgeShape;
-import com.badlogic.gdx.physics.box2d.FixtureDef;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Array;
-import static com.mygdx.game.MyGdxGame.BRICK_BIT;
-import static com.mygdx.game.MyGdxGame.COIN_BIT;
-import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
-import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
-import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
-import static com.mygdx.game.MyGdxGame.PPM;
-import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
 import com.mygdx.game.Screens.PlayScreen;
 
+import static com.mygdx.game.MyGdxGame.*;
 
-/**
- *
- * @author Juan
- */
 public class SoulKeeper extends Sprite{
     public enum State {UP, DOWN, LEFT, RIGHT, STANDING};
     public State currentState;
     public State previousState;
     public World world;
     public Body b2body;
+    public Fixture fixture;
     private TextureRegion marioStand;
     private Animation marioJump;
     private Animation marioRun;
     private float stateTimer;
     private boolean runningRight, runningLeft, runningUp, runningDown;
+    private boolean npcNearby;
 
     float speed = 100.0f;
     
@@ -56,6 +43,7 @@ public class SoulKeeper extends Sprite{
         runningRight = false;
         runningDown = false;
         runningUp = false;
+        npcNearby = false;
         
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 1; i < 4; i++)
@@ -158,14 +146,10 @@ public class SoulKeeper extends Sprite{
         CircleShape shape = new CircleShape();
         shape.setRadius(12/PPM);
         fdef.filter.categoryBits = SOULKEEPER_BIT;
-        fdef.filter.maskBits = DEFAULT_BIT | COIN_BIT | BRICK_BIT | OBJECT_BIT | ENEMY_BIT;
+        fdef.filter.maskBits = DEFAULT_BIT | COIN_BIT | BRICK_BIT | OBJECT_BIT | ENEMY_BIT | NPC_BIT;
         fdef.shape = shape;
-        b2body.createFixture(fdef);
-        EdgeShape head = new EdgeShape();
-        head.set(new Vector2(-2 / PPM, 12 / PPM),new Vector2(2 / PPM, 12 / PPM));
-        fdef.shape = head;
-        fdef.isSensor = true;
-        b2body.createFixture(fdef).setUserData("head");
+        fixture = b2body.createFixture(fdef);
+        fixture.setUserData(this);
     }
 
     public void setRunningUp(boolean runningUp) {
@@ -184,6 +168,10 @@ public class SoulKeeper extends Sprite{
         this.runningLeft = runningLeft;
     }
 
+    public void setNpcNearby(boolean nearby) {
+        npcNearby = nearby;
+    }
+
     public boolean isRunningUp() {
         return runningUp;
     }
@@ -198,5 +186,9 @@ public class SoulKeeper extends Sprite{
 
     public boolean isRunningLeft() {
         return runningLeft;
+    }
+
+    public boolean isNpcNearby() {
+        return npcNearby;
     }
 }
