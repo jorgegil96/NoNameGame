@@ -183,6 +183,15 @@ public class SoulKeeper extends Sprite{
     {
         return life;
     }
+    
+    public void gainLife()
+    {
+        if(life < 1)
+        {
+            life += 0.1;
+        }
+    }
+    
     public void setRunningUp(boolean runningUp) {
         this.runningUp = runningUp;
     }
@@ -216,7 +225,10 @@ public class SoulKeeper extends Sprite{
     }
 
     public void damaged(){
-        life -= 0.1;
+        if(life > 0)
+        {
+            life -= 0.1;
+        }
     }
 
     public float getX()

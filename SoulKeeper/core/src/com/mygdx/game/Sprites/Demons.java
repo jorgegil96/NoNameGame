@@ -133,6 +133,19 @@ public class Demons extends Enemy{
             super.draw(batch);
         }
     }
+    
+    public void g()
+    {
+    }
+    
+    @Override
+    public int getLives(){
+        return lives;
+    }
+    
+    public void gainLife(){
+        player1.gainLife();
+    }
 
     @Override
     public void hitOnHead() {
