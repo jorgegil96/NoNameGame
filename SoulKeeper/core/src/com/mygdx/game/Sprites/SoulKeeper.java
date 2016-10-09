@@ -5,6 +5,7 @@
  */
 package com.mygdx.game.Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -32,12 +33,14 @@ public class SoulKeeper extends Sprite{
     public Body b2body;
     public Fixture fixture;
     private TextureRegion marioStand;
-    private Animation marioJump;
+    private TextureRegion marioHitDown, marioHitRight, marioHitLeft, marioHitUp;
     private Animation marioRunHorizontal;
     private Animation marioRunUp;
     private Animation marioRunDown;
     private float stateTimer;
     private boolean runningRight, runningLeft, runningUp, runningDown;
+    private boolean hitting;
+    private float hitTimer;
 
     float speed = 100.0f;
     private Sword sword;
@@ -58,6 +61,9 @@ public class SoulKeeper extends Sprite{
         runningDown = false;
         runningUp = false;
         life = 1;
+        hitting = false;
+        hitTimer = 0;
+
 
         Array<TextureRegion> frames = new Array<TextureRegion>();
         frames.add(new TextureRegion(getTexture(), 658, 1, 41, 92));
@@ -82,6 +88,10 @@ public class SoulKeeper extends Sprite{
         defineSoul();
         
         marioStand = new TextureRegion(getTexture(), 351, 1, 41, 93);
+        marioHitDown = new TextureRegion(getTexture(), 295, 1, 54, 93);
+        marioHitUp = new TextureRegion(getTexture(), 959, 1, 51, 91);
+        marioHitLeft = new TextureRegion(getTexture(), 480, 1, 67, 92);
+        marioHitRight = new TextureRegion(getTexture(), 549, 1, 64, 92);
         setBounds(0, 0, 41 / PPM, 93 / PPM);
         setRegion(marioStand);
         swords = new Array<Sword>();
@@ -89,7 +99,6 @@ public class SoulKeeper extends Sprite{
 
     public void update(float dt)
     {
-        
         stateTimer += dt;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(dt));
@@ -97,6 +106,15 @@ public class SoulKeeper extends Sprite{
             sword1.update(dt);
             if(sword1.isDestroyed())
                 swords.removeValue(sword1, true);
+        }
+
+        if (hitting) {
+            hitTimer += dt;
+            Gdx.app.log("SoulKeeper", "timer" + hitTimer);
+            if (hitTimer > 1) {
+                hitting = false;
+                hitTimer = 0;
+            }
         }
     }
 
@@ -107,24 +125,44 @@ public class SoulKeeper extends Sprite{
         switch(currentState)
         {
             case UP:
-                region = marioRunUp.getKeyFrame(stateTimer, true /* loop */);
+                if (hitting) {
+                    region = marioHitUp;
+                } else {
+                    region = marioRunUp.getKeyFrame(stateTimer, true /* loop */);
+                }
                 break;
             case LEFT:
-                region = marioRunHorizontal.getKeyFrame(stateTimer, true /* loop */);;
+                if (hitting) {
+                    region = marioHitLeft;
+                } else {
+                    region = marioRunHorizontal.getKeyFrame(stateTimer, true /* loop */);
+                }
                 break;
             case RIGHT:
-                region = marioRunHorizontal.getKeyFrame(stateTimer, true /* loop */);;
+                if (hitting) {
+                    region = marioHitRight;
+                } else {
+                    region = marioRunHorizontal.getKeyFrame(stateTimer, true /* loop */);
+                }
                 break;
             case DOWN:
-                region = marioRunDown.getKeyFrame(stateTimer, true /* loop */);;
+                if (hitting) {
+                    region = marioHitDown;
+                } else {
+                    region = marioRunDown.getKeyFrame(stateTimer, true /* loop */);
+                }
                 break;
             case STANDING:
             default:
-                region = marioStand;
+                if (hitting) {
+                    region = marioHitDown;
+                } else {
+                    region = marioStand;
+                }
                 break;
         }
 
-        if((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX())
+        if((b2body.getLinearVelocity().x < 0 || !runningRight) && !region.isFlipX() && !hitting)
         {
             region.flip(true, false);
             runningRight = false;
@@ -141,19 +179,19 @@ public class SoulKeeper extends Sprite{
     }
 
     public State getState(){
-        if(b2body.getLinearVelocity().y > 0)
+        if(isRunningUp())
         {
             return State.UP;
         }
-        else if(b2body.getLinearVelocity().x < 0)
+        else if(isRunningLeft())
         {
             return State.LEFT;
         }
-        else if(b2body.getLinearVelocity().y < 0)
+        else if(isRunningDown())
         {
             return State.DOWN;
         }
-        else if(b2body.getLinearVelocity().x > 0)
+        else if(isRunningRight())
         {
             return State.RIGHT;
         }
@@ -247,5 +285,6 @@ public class SoulKeeper extends Sprite{
 
     public void hit(){
         swords.add(new Sword(screen1, b2body.getPosition().x, b2body.getPosition().y, runningRight ? true : false, runningUp ? true : false, this));
+        hitting = true;
     }
 }
