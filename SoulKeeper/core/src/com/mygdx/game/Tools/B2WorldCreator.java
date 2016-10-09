@@ -40,34 +40,31 @@ public class B2WorldCreator {
         FixtureDef fdef = new FixtureDef();
         Body body;
 
-        for(MapObject object: map.getLayers().get(5).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object: map.getLayers().get("items").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Trees(screen, rect);
         }
         
-        for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object: map.getLayers().get("Casas").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Houses(screen, rect);
         }
-        
-        for(MapObject object: map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
+
+        /*
+        for(MapObject object: map.getLayers().get("Door").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new Door(screen, rect);
         }
 
-        for(MapObject object: map.getLayers().get(2).getObjects().getByType(RectangleMapObject.class)){
-            Rectangle rect = ((RectangleMapObject)object).getRectangle();
-            new Ground(screen, rect);
-        }
 
-        for(MapObject object : map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)) {
+        for(MapObject object : map.getLayers().get("npc").getObjects().getByType(RectangleMapObject.class)) {
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             new NPC(screen, rect);
         }
-
+        */
 
         demons = new Array<Demons>();
-        for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object: map.getLayers().get("enemies").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             demons.add(new Demons(screen, rect.getX() / MyGdxGame.PPM, rect.getY() / MyGdxGame.PPM, player1));
         }
