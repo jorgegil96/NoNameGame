@@ -44,14 +44,17 @@ public class MyGdxGame extends Game {
 		shapeRenderer.setColor(fillColor);
 		shapeRenderer.rect(width/5+10,y+10,width*3/5-20,height/8-20);
 		shapeRenderer.end();
+		textCenter(y+height/10, text,font);
+	}
+
+	public void textCenter(int y, String text, BitmapFont font){
 		batch.setProjectionMatrix(camera.combined);
 		batch.begin();
 		GlyphLayout layout1 = new GlyphLayout();
 		layout1.setText(font, String.valueOf(text));
-		font.draw(batch, text, width/2 - layout1.width / 2, y+height/10);
+		font.draw(batch, text, width / 2 - layout1.width / 2, y);
 		batch.end();
 	}
-
         
 	@Override
 	public void create () {
