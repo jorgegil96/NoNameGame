@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.viewport.FillViewport;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.StretchViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.mygdx.game.Gameplay.History;
 import com.mygdx.game.MyGdxGame;
 import static com.mygdx.game.MyGdxGame.PPM;
 import com.mygdx.game.Scenes.Hud;
@@ -37,7 +38,7 @@ import com.mygdx.game.Tools.WorldContactListener;
 import com.mygdx.game.Utilities.MyInputProcessor;
 
 public class PlayScreen implements Screen{
-    private long fontWaitTime;
+    private History history;
     private MyGdxGame game;
     private OrthographicCamera camera;
     private Viewport view;
@@ -80,7 +81,7 @@ public class PlayScreen implements Screen{
         soulKeeper = new SoulKeeper(this);
         creator = new B2WorldCreator(this, soulKeeper);
         hud = new Hud(game, this);
-        Dialog = new Dialog(game, this, "", TimeUtils.nanoTime());
+        Dialog = new Dialog(game, "", TimeUtils.nanoTime());
         world.setContactListener(new WorldContactListener());
         world.setGravity(new Vector2(0,0));
 
@@ -178,10 +179,10 @@ public class PlayScreen implements Screen{
                 game.batch.end();
                 game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
                 hud.stage.draw();
-                /*if(Gdx.input.isTouched()) {
-                    Dialog = new Dialog(game, this, "The poor children had now nowhere to play. They tried to play on the road, but the" +
+                if(Gdx.input.isTouched()) {
+                    Dialog = new Dialog(game, "The poor children had now nowhere to play. They tried to play on the road, but the" +
                             " road was very dusty and full of hard stones, and they did not like it.", TimeUtils.nanoTime());
-                }*/
+                }
                 game.batch.setProjectionMatrix(Dialog.stage.getCamera().combined);
                 Dialog.stage.draw();
                 if(Gdx.input.isTouched()){
@@ -232,10 +233,6 @@ public class PlayScreen implements Screen{
                 game.batch.end();
                 game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
                 hud.stage.draw();
-                /*if(Gdx.input.isTouched()) {
-                    Dialog = new Dialog(game, this, "The poor children had now nowhere to play. They tried to play on the road, but the" +
-                            " road was very dusty and full of hard stones, and they did not like it.", TimeUtils.nanoTime());
-                }*/
                 game.batch.setProjectionMatrix(Dialog.stage.getCamera().combined);
                 Dialog.stage.draw();
                 if(Gdx.input.isTouched()){

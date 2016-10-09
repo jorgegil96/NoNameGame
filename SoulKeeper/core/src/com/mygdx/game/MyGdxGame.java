@@ -1,8 +1,10 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Audio;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -36,6 +38,7 @@ public class MyGdxGame extends Game {
 	public int almas=3;
 	public float vida=1f;
 	private Preferences prefs;
+	public Music acustica;
 
 
 	public void button(int y, String text, Color fillColor){
@@ -81,6 +84,9 @@ public class MyGdxGame extends Game {
 		prefs = Gdx.app.getPreferences("Saved game");
 		almas = prefs.getInteger("Almas capturadas", 0);
 		vida = prefs.getFloat("Vida", 1.0f);
+		acustica = Gdx.audio.newMusic(Gdx.files.internal("audio/music/RomanceDeAmorAcustica.wav"));
+		acustica.setLooping(true);
+		acustica.play();
 		setScreen(new mainMenuScreen(this));
 
 	}
@@ -99,5 +105,6 @@ public class MyGdxGame extends Game {
 	public void dispose () {
 		batch.dispose();
 		font.dispose();
+		acustica.dispose();
 	}
 }
