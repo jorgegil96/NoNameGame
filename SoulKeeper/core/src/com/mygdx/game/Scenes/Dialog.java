@@ -6,8 +6,6 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.MyGdxGame;
 
-import javafx.scene.Scene;
-
 /**
  * Created by ortiz on 9/10/16.
  */

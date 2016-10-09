@@ -42,7 +42,7 @@ public class PlayScreen implements Screen{
     private OrthogonalTiledMapRenderer renderer;
     private World world;
     private Box2DDebugRenderer b2dr;
-    private SoulKeeper soulKeeper;
+    public SoulKeeper soulKeeper;
     private B2WorldCreator creator;
     private TextureAtlas atlas;
     public boolean up;
@@ -54,7 +54,7 @@ public class PlayScreen implements Screen{
         this.game = game;
         camera = new OrthographicCamera();
         view = new FillViewport(400/ PPM, 208 / PPM,camera);
-        hud = new Hud(game);
+       
         mapLoader = new TmxMapLoader();
         map = mapLoader.load("SoulKeeper_Try4.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1/ PPM);
@@ -64,7 +64,7 @@ public class PlayScreen implements Screen{
         b2dr = new Box2DDebugRenderer();
         soulKeeper = new SoulKeeper(this);
         creator = new B2WorldCreator(this, soulKeeper);
-
+        hud = new Hud(game, this);
         world.setContactListener(new WorldContactListener());
         world.setGravity(new Vector2(0,0));
 
@@ -148,6 +148,8 @@ public class PlayScreen implements Screen{
     public void update(float dt) {
         world.step(1/60f, 6, 2);
         soulKeeper.update(dt);
+        game.setLife(soulKeeper.getLife());
+        Gdx.app.log("Life", String.valueOf(game.vida));
         for(Enemy enemy: creator.getDemons())
         {
             enemy.update(dt);
