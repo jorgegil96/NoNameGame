@@ -3,6 +3,7 @@ package com.mygdx.game.Screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.mygdx.game.MyGdxGame;
 
 /**
@@ -10,8 +11,10 @@ import com.mygdx.game.MyGdxGame;
  */
 public class CreditsScreen implements Screen {
     final MyGdxGame game;
+    long waitTime;
     public CreditsScreen(final MyGdxGame gam) {
         game=gam;
+        waitTime=  TimeUtils.nanoTime();
     }
 
     @Override
@@ -23,7 +26,16 @@ public class CreditsScreen implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        if(Gdx.input.isTouched()){
+        game.textCenter(game.height/10,"Carlos Ortiz",game.font);
+        game.textCenter(game.height/5,"Juan Carlos Garza",game.font);
+        game.textCenter(game.height*3/10,"Jorge Gil",game.font);
+        game.textCenter(game.height*4/10,"Programmers:",game.font);
+        game.textCenter(game.height*3/5,"Ana Garza",game.font);
+        game.textCenter(game.height*7/10,"Dolores Macías",game.font);
+        game.textCenter(game.height*4/5,"Designers:",game.font);
+        game.textCenter(game.height+5,"Credits",game.titleFont);
+
+        if(Gdx.input.isTouched() && TimeUtils.nanoTime()-waitTime>1000000000){
             game.setScreen(new mainMenuScreen(game));
             dispose();
         }

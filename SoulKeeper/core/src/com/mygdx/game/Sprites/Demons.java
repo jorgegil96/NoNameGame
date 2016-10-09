@@ -34,12 +34,13 @@ public class Demons extends Enemy{
     private Array<TextureRegion> frames;
     private boolean setToDestroy;
     private boolean destroyed;
-    
+    int lives;
     public Demons(PlayScreen screen, float x, float y) {
         super(screen, x, y);
         frames = new Array<TextureRegion>();
         setToDestroy = false;
         destroyed = false;
+        lives = 3;
         for(int i = 0; i < 2; i++)
         {
             frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"),0 + (i* 16),0, 16, 16));
@@ -97,4 +98,12 @@ public class Demons extends Enemy{
         setToDestroy = true;
     }
     
+    @Override
+    public void damaged() {
+        lives -= 1;
+        if(lives == 0)
+        {
+            setToDestroy = true;
+        }
+    }
 }

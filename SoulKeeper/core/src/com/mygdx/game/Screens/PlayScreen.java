@@ -7,6 +7,7 @@ package com.mygdx.game.Screens;
 
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -30,10 +31,6 @@ import com.mygdx.game.Tools.B2WorldCreator;
 import com.mygdx.game.Tools.WorldContactListener;
 import com.mygdx.game.Utilities.MyInputProcessor;
 
-/**
- *
- * @author Juan
- */
 public class PlayScreen implements Screen{
     private MyGdxGame game;
     private OrthographicCamera camera;
@@ -47,7 +44,10 @@ public class PlayScreen implements Screen{
     private SoulKeeper soulKeeper;
     private B2WorldCreator creator;
     private TextureAtlas atlas;
-    
+    public boolean up;
+    public boolean down;
+    public boolean right;
+    public boolean left;
     public PlayScreen(MyGdxGame game){
         atlas = new TextureAtlas("Mario_and_Enemies.pack");
         this.game = game;
@@ -65,12 +65,83 @@ public class PlayScreen implements Screen{
         world.setContactListener(new WorldContactListener());
         world.setGravity(new Vector2(0,0));
 
-        MyInputProcessor inputProcessor = new MyInputProcessor(this, soulKeeper);
+        right = true;
+        left = false;
+        up = false;
+        down = false;
+
+        MyInputProcessor inputProcessor = new MyInputProcessor(this,soulKeeper);
         Gdx.input.setInputProcessor(inputProcessor);
     }
     
-    public void update(float dt)
+    public void setUp()
     {
+        up = true;
+            right = false;
+            left = false;       
+            down = false;   
+    }
+    
+    public void setDown()
+    {
+        down = true;
+            up = false;
+            right = false;
+            left = false;
+    }
+    
+    public void setLeft()
+    {
+        up = false;
+            right = false;
+            left = true;      
+           down = false;
+    }
+    
+    public void setRight()
+    {
+        up = false;
+            right = true;
+            left = false;      
+            down = false;
+    }
+    
+    public void handleInput(float dt){
+        if(Gdx.input.isKeyJustPressed(Input.Keys.UP))
+        {
+            up = true;
+            right = false;
+            left = false;       
+            down = false;   
+        }
+        if(Gdx.input.isKeyJustPressed(Input.Keys.DOWN))
+        {
+            down = true;
+            up = false;
+            right = false;
+            left = false;   
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.RIGHT))
+        {
+            up = false;
+            right = true;
+            left = false;      
+            down = false;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.LEFT))
+        {
+            up = false;
+            right = false;
+            left = true;      
+           down = false;
+        }
+        if(Gdx.input.isKeyPressed(Input.Keys.X))
+        {
+            soulKeeper.hit();
+        }
+    }
+    
+    public void update(float dt) {
         world.step(1/60f, 6, 2);
         soulKeeper.update(dt);
         for(Enemy enemy: creator.getDemons())
