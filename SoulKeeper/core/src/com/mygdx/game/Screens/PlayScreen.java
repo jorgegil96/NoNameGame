@@ -46,7 +46,7 @@ public class PlayScreen implements Screen{
     private OrthogonalTiledMapRenderer renderer;
     private World world;
     private Box2DDebugRenderer b2dr;
-    private SoulKeeper soulKeeper;
+    public SoulKeeper soulKeeper;
     private Demons goomba;
     private B2WorldCreator creator;
     private TextureAtlas atlas;
@@ -61,13 +61,15 @@ public class PlayScreen implements Screen{
         view = new FitViewport(V_WIDTH/ PPM, V_HEIGHT / PPM,camera);
         hud = new Hud(game.batch);
         mapLoader = new TmxMapLoader();
-        map = mapLoader.load("SoulKeeper_Try.tmx");
+        map = mapLoader.load("SoulKeeper_Try4.tmx");
         renderer = new OrthogonalTiledMapRenderer(map, 1/ PPM);
         camera.position.set((view.getWorldWidth() / 2), (view.getWorldHeight() / 2),0);
+        
         world = new World(new Vector2(0,-10), false);
         b2dr = new Box2DDebugRenderer(); 
-        creator = new B2WorldCreator(this);
         soulKeeper = new SoulKeeper(this);
+        creator = new B2WorldCreator(this, soulKeeper);
+        
         world.setContactListener(new WorldContactListener());
         world.setGravity(new Vector2(0,0));
         right = true;

@@ -19,6 +19,7 @@ import static com.mygdx.game.MyGdxGame.PPM;
 import com.mygdx.game.Screens.PlayScreen;
 import com.mygdx.game.Sprites.Demons;
 import com.mygdx.game.Sprites.Ground;
+import com.mygdx.game.Sprites.SoulKeeper;
 import com.mygdx.game.Sprites.Trees;
 
 /**
@@ -27,8 +28,9 @@ import com.mygdx.game.Sprites.Trees;
  */
 public class B2WorldCreator {
     private Array<Demons> demons;
-    
-    public B2WorldCreator(PlayScreen screen){
+    private SoulKeeper player1;
+    public B2WorldCreator(PlayScreen screen, SoulKeeper player){
+        player1 = player;
         World world = screen.getWorld();
         TiledMap map = screen.getMap();
         BodyDef bdef = new BodyDef();
@@ -47,10 +49,10 @@ public class B2WorldCreator {
         }
         
         demons = new Array<Demons>();
-        /*for(MapObject object: map.getLayers().get(6).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object: map.getLayers().get(3).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
-            demons.add(new Demons(screen, rect.getX() / PPM, rect.getY() / PPM));
-        }*/
+            demons.add(new Demons(screen, rect.getX() / PPM, rect.getY() / PPM, player1));
+        }
     }
     
     public Array<Demons> getDemons(){

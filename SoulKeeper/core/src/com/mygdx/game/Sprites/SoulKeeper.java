@@ -5,6 +5,7 @@
  */
 package com.mygdx.game.Sprites;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -47,6 +48,7 @@ public class SoulKeeper extends Sprite{
     private PlayScreen screen1;
     private Array<Sword> swords;
     private FixtureDef fdef_sword = new FixtureDef();
+    private int life;
     public SoulKeeper(PlayScreen screen)
     {   
         super(screen.getAtlas().findRegion("big_mario"));
@@ -59,7 +61,7 @@ public class SoulKeeper extends Sprite{
         runningRight = false;
         runningDown = false;
         runningUp = false;
-        
+        life = 100;
         Array<TextureRegion> frames = new Array<TextureRegion>();
         for(int i = 1; i < 4; i++)
         {
@@ -92,6 +94,7 @@ public class SoulKeeper extends Sprite{
     
     public void update(float dt)
     {
+        Gdx.app.log("Life", String.valueOf(life));
         stateTimer += dt;
         setPosition(b2body.getPosition().x - getWidth() / 2, b2body.getPosition().y - getHeight() / 2);
         setRegion(getFrame(dt));
@@ -210,6 +213,10 @@ public class SoulKeeper extends Sprite{
 
     public boolean isRunningLeft() {
         return runningLeft;
+    }
+    
+    public void damaged(){
+        life -= 10;
     }
     
     public float getX()

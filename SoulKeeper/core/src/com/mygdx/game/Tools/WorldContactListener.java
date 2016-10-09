@@ -76,13 +76,13 @@ public class WorldContactListener implements ContactListener{
                 }
                 break;
             case ENEMY_BIT | SOULKEEPER_BIT:
-                if(FixA.getFilterData().categoryBits == ENEMY_BIT)
+                if(FixA.getFilterData().categoryBits == SOULKEEPER_BIT)
                 {
-                    ((Enemy)FixA.getUserData()).hitOnHead();
+                    ((SoulKeeper)FixA.getUserData()).damaged();
                 }
             else
                 {
-                    ((Enemy)FixB.getUserData()).hitOnHead();
+                    ((SoulKeeper)FixB.getUserData()).damaged();
                 }
             break;
             case ENEMY_BIT | OBJECT_BIT:
