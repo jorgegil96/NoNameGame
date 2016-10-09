@@ -206,10 +206,10 @@ public class PlayScreen implements Screen{
                 game.batch.end();
                 game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
                 hud.stage.draw();
-                if(Gdx.input.isTouched()) {
+                /*if(Gdx.input.isTouched()) {
                     Dialog = new Dialog(game, "The poor children had now nowhere to play. They tried to play on the road, but the" +
                             " road was very dusty and full of hard stones, and they did not like it.", TimeUtils.nanoTime());
-                }
+                }*/
                 game.batch.setProjectionMatrix(Dialog.stage.getCamera().combined);
                 Dialog.stage.draw();
                 if(Gdx.input.isTouched()){

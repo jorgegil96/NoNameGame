@@ -1,0 +1,61 @@
+monstruo.png
+size: 92, 338
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+monstruo_noche
+  rotate: false
+  xy: 1, 87
+  size: 89, 40
+  orig: 100, 100
+  offset: 6, 14
+  index: -1
+monstruo_noche2
+  rotate: false
+  xy: 1, 129
+  size: 89, 40
+  orig: 100, 100
+  offset: 6, 14
+  index: -1
+monstruo_noche_ataque
+  rotate: false
+  xy: 1, 1
+  size: 90, 41
+  orig: 100, 100
+  offset: 4, 14
+  index: -1
+monstruo_noche_ataque2
+  rotate: false
+  xy: 1, 44
+  size: 90, 41
+  orig: 100, 100
+  offset: 4, 14
+  index: -1
+monstruo_noche_caminar_dos
+  rotate: false
+  xy: 1, 171
+  size: 89, 40
+  orig: 100, 100
+  offset: 6, 14
+  index: -1
+monstruo_noche_caminar_dos2
+  rotate: false
+  xy: 1, 213
+  size: 89, 40
+  orig: 100, 100
+  offset: 6, 14
+  index: -1
+monstruo_noche_caminar_uno
+  rotate: false
+  xy: 1, 255
+  size: 89, 40
+  orig: 100, 100
+  offset: 6, 14
+  index: -1
+monstruo_noche_caminar_uno2
+  rotate: false
+  xy: 1, 297
+  size: 89, 40
+  orig: 100, 100
+  offset: 6, 14
+  index: -1

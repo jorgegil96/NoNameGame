@@ -6,6 +6,7 @@
 package com.mygdx.game.Sprites;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -40,19 +41,20 @@ public class Demons extends Enemy{
     private PlayScreen screen1;
     public Demons(PlayScreen screen, float x, float y, SoulKeeper player) {
         super(screen, x, y);
+        Texture texture = new Texture("monstruoNoche/monstruo.png");
         player1 = player;
         screen1 = screen;
-        frames = new Array<TextureRegion>();
         setToDestroy = false;
         destroyed = false;
         lives = 3;
-        for(int i = 0; i < 2; i++)
-        {
-            frames.add(new TextureRegion(screen.getAtlas().findRegion("goomba"),0 + (i* 16),0, 16, 16));
-            walk = new Animation(0.4f, frames);
-            stateTime = 0;
-            setBounds(getX(), getY(), 16 /PPM, 16 / PPM);
-        }
+
+        frames = new Array<TextureRegion>();
+        frames.add(new TextureRegion(texture, 1, 87, 89, 40));
+        frames.add(new TextureRegion(texture, 1, 255, 89, 40));
+        frames.add(new TextureRegion(texture, 1, 171, 89, 40));
+        walk = new Animation(0.4f, frames);
+        stateTime = 0;
+        setBounds(getX(), getY(), 89 /PPM, 40 / PPM);
     }
 
     @Override
@@ -63,7 +65,7 @@ public class Demons extends Enemy{
         {
             world.destroyBody(b2body);
             destroyed = true;
-            setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba"), 32, 0, 16, 16));
+            //setRegion(new TextureRegion(screen.getAtlas().findRegion("goomba"), 32, 0, 16, 16));
             stateTime = 0;
         }
         else if(!destroyed)

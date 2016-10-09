@@ -81,7 +81,7 @@ public class B2WorldCreator {
  
 
         demons = new Array<Demons>();
-        for(MapObject object: map.getLayers().get("enemies").getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object: map.getLayers().get("monstruos").getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject)object).getRectangle();
             demons.add(new Demons(screen, rect.getX() / MyGdxGame.PPM, rect.getY() / MyGdxGame.PPM, player1));
         }
