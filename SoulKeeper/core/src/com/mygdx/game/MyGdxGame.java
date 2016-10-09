@@ -32,6 +32,7 @@ public class MyGdxGame extends Game {
 	public static final short OBJECT_BIT = 32;
 	public static final short ENEMY_BIT = 64;
 	public static final short ITEM_BIT = 128;
+        public static final short SWORD_BIT = 256;
 	public int width;
 	public int height;
 

@@ -11,11 +11,15 @@ import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
 import com.badlogic.gdx.physics.box2d.Fixture;
 import com.badlogic.gdx.physics.box2d.Manifold;
+import static com.mygdx.game.MyGdxGame.DEFAULT_BIT;
 import static com.mygdx.game.MyGdxGame.ENEMY_BIT;
 import static com.mygdx.game.MyGdxGame.OBJECT_BIT;
 import static com.mygdx.game.MyGdxGame.SOULKEEPER_BIT;
+import static com.mygdx.game.MyGdxGame.SWORD_BIT;
 import com.mygdx.game.Sprites.Enemy;
 import com.mygdx.game.Sprites.InteractiveTileObject;
+import com.mygdx.game.Sprites.SoulKeeper;
+import com.mygdx.game.Sprites.Sword;
 
 /**
  *
@@ -49,6 +53,28 @@ public class WorldContactListener implements ContactListener{
         }
         switch(cDef)
         {
+            case DEFAULT_BIT | SWORD_BIT:
+                 if(FixA.getFilterData().categoryBits == SWORD_BIT)
+                {
+                   // ((Sword)FixA.getUserData()).setToDestroy();
+                }
+            else
+                {
+                    //((Sword)FixB.getUserData()).setToDestroy();
+                }
+                break;
+            case ENEMY_BIT | SWORD_BIT:
+                if(FixA.getFilterData().categoryBits == ENEMY_BIT)
+                {
+                    ((Enemy)FixA.getUserData()).damaged();
+                    ((Sword)FixB.getUserData()).setToDestroy();
+                }
+            else
+                {
+                    ((Enemy)FixB.getUserData()).damaged();
+                    ((Sword)FixA.getUserData()).setToDestroy();
+                }
+                break;
             case ENEMY_BIT | SOULKEEPER_BIT:
                 if(FixA.getFilterData().categoryBits == ENEMY_BIT)
                 {
