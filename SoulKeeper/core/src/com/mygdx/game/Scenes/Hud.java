@@ -5,18 +5,22 @@
  */
 package com.mygdx.game.Scenes;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import static com.mygdx.game.MyGdxGame.V_HEIGHT;
-import static com.mygdx.game.MyGdxGame.V_WIDTH;
+import com.mygdx.game.MyGdxGame;
+
 
 
 /**
@@ -24,45 +28,49 @@ import static com.mygdx.game.MyGdxGame.V_WIDTH;
  * @author Juan
  */
 public class Hud implements Disposable{
-    
+
+
+    private MyGdxGame game;
     public Stage stage;
     private Viewport view;
-    private Integer timer;
-    private float count;
-    private Integer score;
+    private Texture alma;
+    private Texture notAlma;
+    private Texture lifeBg;
+    private Texture life;
+    private Image  almaImg;
+    private Image notAlmaImg;
+    private Image lifeBgImg;
+    private Image lifeImg;
     
-    Label countLabel;
-    Label scoreLabel;
-    Label timeLabel;
-    Label levelLabel;
-    Label worldLabel;
-    Label marioLabel;
-    
-    public Hud(SpriteBatch sb){
-        timer = 300;
-        count = 0;
-        score = 0;
-        view = new FitViewport(V_WIDTH, V_HEIGHT, new OrthographicCamera());
-        stage = new Stage(view, sb);
-        
-        Table table = new Table();
-        table.top();
-        table.setFillParent(true);
-        
-        countLabel = new Label(String.format("%03d", timer), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        scoreLabel = new Label(String.format("%06d", score), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        timeLabel = new Label("TIME", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        levelLabel = new Label("1-1", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        worldLabel = new Label("WORLD", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        marioLabel = new Label("MARIO", new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        table.add(marioLabel).expandX().padTop(2);
-        table.add(worldLabel).expandX().padTop(2);
-        table.add(timeLabel).expandX().padTop(2);
-        table.row();
-        table.add(scoreLabel).expandX();
-        table.add(levelLabel).expandX();
-        table.add(countLabel).expandX();
-        stage.addActor(table);
+    public Hud(final MyGdxGame game){
+        int i=0;
+        view = new FitViewport(game.width, game.height, new OrthographicCamera());
+        stage = new Stage(view, game.batch);
+        alma = new Texture(Gdx.files.internal("sprites/alma.png"));
+        notAlma = new Texture(Gdx.files.internal("sprites/almaShadow.png"));
+        life = new Texture(Gdx.files.internal("sprites/life.png"));
+        lifeBg = new Texture(Gdx.files.internal("sprites/lifebg.png"));
+
+        while(i<game.almas) {
+            almaImg = new Image(alma);
+            almaImg.setPosition(50+i*game.height*3/50, game.height * 9 / 10);
+            stage.addActor(almaImg);
+            i++;
+        }
+        while(7-i>0){
+            notAlmaImg = new Image(notAlma);
+            notAlmaImg.setPosition(50+i*game.height*3/50, game.height * 9 / 10);
+            stage.addActor(notAlmaImg);
+            i++;
+        }
+        lifeBgImg=new Image(lifeBg);
+        lifeBgImg.setPosition(game.width*17/20,game.height*9/10);
+        stage.addActor(lifeBgImg);
+
+        lifeImg=new Image(life);
+        lifeImg.setPosition(game.width*17/20+20,game.height*9/10+20);
+        lifeImg.setScaleX(game.vida);
+        stage.addActor(lifeImg);
     }
 
     @Override

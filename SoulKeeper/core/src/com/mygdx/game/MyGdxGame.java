@@ -14,6 +14,7 @@ import com.mygdx.game.Screens.PlayScreen;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.mygdx.game.Screens.mainMenuScreen;
 
+
 public class MyGdxGame extends Game {
     
 	public SpriteBatch batch;
@@ -21,8 +22,6 @@ public class MyGdxGame extends Game {
 	public BitmapFont titleFont;
 	public ShapeRenderer shapeRenderer;
 	OrthographicCamera camera;
-	public static final int V_WIDTH = 400;
-	public static final int V_HEIGHT = 208;
 	public static final float PPM = 100;
 	public static final short DEFAULT_BIT = 1;
 	public static final short SOULKEEPER_BIT = 2;
@@ -35,6 +34,8 @@ public class MyGdxGame extends Game {
         public static final short SWORD_BIT = 256;
 	public int width;
 	public int height;
+	public int almas=3;
+	public float vida=0.2f;
 
 
 	public void button(int y, String text, Color fillColor){
