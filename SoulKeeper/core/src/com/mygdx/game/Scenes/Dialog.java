@@ -1,23 +1,33 @@
 package com.mygdx.game.Scenes;
 
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.utils.TimeUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
+import com.mygdx.game.Screens.PlayScreen;
 
 /**
  * Created by ortiz on 9/10/16.
  */
 public class Dialog implements Disposable {
-
+    private MyGdxGame game;
+    public Stage stage;
+    private Viewport view;
+    private PlayScreen screen1;
     String s2 = "";
     int i=0;
     int j=0;
     String[] lines={"","","","",""};
     GlyphLayout layout2=new GlyphLayout();
     long fontWaitTime=0;
-    public Dialog(final MyGdxGame game){
+    public Dialog(final MyGdxGame game, PlayScreen screen){
+        screen1 = screen;
+        view = new FitViewport(game.width, game.height, new OrthographicCamera());
+        stage = new Stage(view, game.batch);
 
     }
 
@@ -70,6 +80,5 @@ public class Dialog implements Disposable {
     }
 
     public void update(float dt) {
-
     }
 }

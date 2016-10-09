@@ -26,6 +26,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.mygdx.game.MyGdxGame;
 import static com.mygdx.game.MyGdxGame.PPM;
 import com.mygdx.game.Scenes.Hud;
+import com.mygdx.game.Scenes.Dialog;
 import com.mygdx.game.Sprites.Enemy;
 import com.mygdx.game.Sprites.SoulKeeper;
 import com.mygdx.game.Tools.B2WorldCreator;
@@ -37,6 +38,7 @@ public class PlayScreen implements Screen{
     private OrthographicCamera camera;
     private Viewport view;
     private Hud hud;
+    private Dialog Dialog;
     private TmxMapLoader mapLoader;
     private TiledMap map;
     private OrthogonalTiledMapRenderer renderer;
@@ -65,6 +67,7 @@ public class PlayScreen implements Screen{
         soulKeeper = new SoulKeeper(this);
         creator = new B2WorldCreator(this, soulKeeper);
         hud = new Hud(game, this);
+        Dialog = new Dialog(game, this);
         world.setContactListener(new WorldContactListener());
         world.setGravity(new Vector2(0,0));
 
@@ -159,6 +162,7 @@ public class PlayScreen implements Screen{
             }
         }
         hud.update(dt);
+        Dialog.update(dt);
         camera.position.x = soulKeeper.b2body.getPosition().x;
         camera.update();
         renderer.setView(camera);
@@ -190,6 +194,8 @@ public class PlayScreen implements Screen{
         game.batch.end();
         game.batch.setProjectionMatrix(hud.stage.getCamera().combined);
         hud.stage.draw();
+        game.batch.setProjectionMatrix(Dialog.stage.getCamera().combined);
+        Dialog.stage.draw();
     }
 
     @Override
