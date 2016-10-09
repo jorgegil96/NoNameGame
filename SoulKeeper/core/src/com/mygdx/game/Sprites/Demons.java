@@ -59,7 +59,6 @@ public class Demons extends Enemy{
     @Override
     public void update(float dt)
     {
-        Gdx.app.log("L", Float.toString(player1.b2body.getLinearVelocity().x));
         stateTime += dt;
         if(setToDestroy && !destroyed)
         {
