@@ -817,7 +817,7 @@
   <object id="228" x="1120" y="2528" width="54" height="42"/>
   <object id="229" x="1348" y="3084" width="142" height="86"/>
  </objectgroup>
- <objectgroup name="enemies">
+ <objectgroup name="monstruos">
   <object id="230" x="2598" y="1878"/>
   <object id="231" x="514" y="1720"/>
   <object id="232" x="1524" y="2326"/>
